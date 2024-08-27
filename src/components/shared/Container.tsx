@@ -5,7 +5,7 @@ type TChildrenProps = {
 };
 
 const Container = ({ children }: TChildrenProps) => {
-  return <div className="min-w-[2000px] max-auto mx-10">{children}</div>;
+  return <div className="mx-10 max-auto">{children}</div>;
 };
 
 export default Container;

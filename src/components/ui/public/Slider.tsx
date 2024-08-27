@@ -1,42 +1,58 @@
-const images = [
-  "https://images.pexels.com/photos/27202978/pexels-photo-27202978/free-photo-of-the-night-sky-over-a-lake-with-stars-and-a-blue-sky.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-  "https://images.pexels.com/photos/27244532/pexels-photo-27244532/free-photo-of-alaskan-kenai-river.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-  "https://images.pexels.com/photos/27330739/pexels-photo-27330739/free-photo-of-a-canal-in-a-town.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-];
+import SliderBox from "./SliderBox";
+
 const Slider = () => {
   return (
-    <div className="relative bg-gray-100 w-full h-screen p-8">
-      {/* First Card */}
-      <div
-        className="bg-white p-8 rounded-lg shadow-lg relative z-10"
-        style={{ width: "60%", marginLeft: "30%" }}
-      >
-        <h2 className="text-2xl font-bold mb-4">Card Title</h2>
-        <p className="text-gray-700">
-          This is some content inside the first card. It has a white background
-          and some text content.
-        </p>
+    <div className="flex items-center justify-start min-h-screen py-8 pl-56 bg-gray-100">
+      {/* Left side with the image */}
+      <div className="relative w-1/4 left-28">
+        {/* <img
+          src="https://getaround-assets.gumlet.io/images/shared/getaround_usp/getaround-usp-hero5.jpg?compress=true&h=600&mode=crop&w=400"
+          alt="Car rental service"
+          className="shadow-lg rounded-xl"
+        /> */}
+        <SliderBox img="https://getaround-assets.gumlet.io/images/shared/getaround_usp/getaround-usp-hero5.jpg?compress=true&h=600&mode=crop&w=400" />
       </div>
 
-      {/* Second Card */}
-      <div className="absolute top-0 left-0 w-full h-full flex items-start justify-start overflow-hidden">
-        <div
-          className="relative w-1/2 h-full"
-          style={{ clipPath: "polygon(0 0, 100% 0, 100% 30%, 0 30%)" }}
-        >
-          {/* Image Carousel or Slider */}
-          <div className="absolute inset-0">
-            {images.map((img, index) => (
-              <img
-                key={index}
-                src={img}
-                alt={`Slider Image ${index}`}
-                className="w-full h-full object-cover absolute top-0 left-0 transition-opacity duration-1000 ease-in-out"
-                style={{ opacity: index === 0 ? 1 : 0 }} // Example of changing images. You might want to use a slider library for automatic transitions
-              />
-            ))}
-          </div>
-        </div>
+      {/* Right side with the text */}
+      <div className="flex flex-col w-1/2 p-32 bg-white rounded-lg shadow-lg">
+        <h1 className="text-3xl font-bold text-gray-900">
+          Discover the new way <br />
+          <span className="text-purple-600">to rent a car</span>
+        </h1>
+        <p className="mt-4 text-gray-600">
+          Choose from thousands of cars available from private and professional
+          owners near you.
+        </p>
+        <ul className="mt-6 space-y-4">
+          <li className="flex items-start">
+            <span className="mr-3 text-purple-600">😊</span>
+            <span>
+              <strong>Prices by the hour or day</strong> <br />
+              Trip liability insurance is included. You can even add another
+              driver at no extra cost.
+            </span>
+          </li>
+          <li className="flex items-start">
+            <span className="mr-3 text-purple-600">✅</span>
+            <span>
+              <strong>No waiting around</strong> <br />
+              Book a car near you instantly, even at the last minute. No lines.
+              No paperwork.
+            </span>
+          </li>
+          <li className="flex items-start">
+            <span className="mr-3 text-purple-600">🚗</span>
+            <span>
+              <strong>Unlock the car with the app</strong> <br />
+              Our secure Getaround Connect technology allows you to do the
+              walkaround inspection of the car with the app. The car opens. The
+              keys are inside. Off you go!
+            </span>
+          </li>
+        </ul>
+        <button className="px-6 py-3 mt-6 font-semibold text-white bg-purple-600 rounded-full hover:bg-purple-700">
+          See how it works →
+        </button>
       </div>
     </div>
   );
