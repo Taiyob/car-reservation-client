@@ -1,0 +1,37 @@
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 150px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 0.375rem;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu.block {
+  display: block;
+  min-width: 300px;
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.dropdown-menu.hidden {
+  display: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  margin: 0;
+  padding: 0;
+}
