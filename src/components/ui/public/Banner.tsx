@@ -2,14 +2,14 @@ import Container from "../../shared/Container";
 import bg from "../../../assets/images/banner1.svg";
 import banner_img from "../../../assets/images/banner2.avif";
 import { IoLocationSharp } from "react-icons/io5";
-import { useState } from "react";
+//import { useState } from "react";
 import DatePicker from "react-date-picker";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "../../../styles/banner.css";
 
 const Banner = () => {
-  const [value, onChange] = useState(new Date());
+  //const [value, onChange] = useState("");
   return (
     <Container>
       <div className="flex justify-between items-center space-x-8 h-[800px]">
@@ -34,14 +34,14 @@ const Banner = () => {
             <div className="flex my-5 space-x-2">
               <DatePicker
                 className="w-full h-16 bg-gray-100 border border-gray-600"
-                onChange={onChange}
-                value={value}
+                //onChange={onChange}
+                //value={value}
                 calendarAriaLabel="Pickup"
               />
               <DatePicker
                 className="w-full h-16 bg-gray-100 border border-gray-600"
-                onChange={onChange}
-                value={value}
+                //onChange={onChange}
+                //value={value}
               />
             </div>
             <button
