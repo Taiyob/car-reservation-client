@@ -4,10 +4,11 @@ import CarListingPage from "../pages/public/CarListingPage";
 import CarDetailsPage from "../pages/public/CarDetailsPage";
 import AboutUsPage from "../pages/public/AboutUsPage";
 import ErrorPage from "../components/shared/ErrorPage";
-import SignUp from "../pages/public/SignUp";
-import SignIn from "../pages/public/SignIn";
 import Home from "../pages/public/Home";
 import Contact from "../pages/public/Contact";
+import AdminLayout from "../pages/admin/AdminLayout";
+import AdminHome from "../pages/admin/AdminHome";
+import CarCreate from "../pages/admin/CarCreate";
 
 const router = createBrowserRouter([
   {
@@ -38,12 +39,19 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/sign-up",
-    element: <SignUp />,
-  },
-  {
-    path: "/sign-in",
-    element: <SignIn />,
+    path: "/admin-dashboard",
+    element: <AdminLayout />,
+    children: [
+      {
+        index: true,
+        //path: "/admin-dashboard",
+        element: <AdminHome />,
+      },
+      {
+        path: "create-car",
+        element: <CarCreate />,
+      },
+    ],
   },
 ]);
 
