@@ -5,11 +5,6 @@ const Slider = () => {
     <div className="flex items-center justify-start min-h-screen py-8 pl-56 bg-gray-100">
       {/* Left side with the image */}
       <div className="relative w-1/4 left-28">
-        {/* <img
-          src="https://getaround-assets.gumlet.io/images/shared/getaround_usp/getaround-usp-hero5.jpg?compress=true&h=600&mode=crop&w=400"
-          alt="Car rental service"
-          className="shadow-lg rounded-xl"
-        /> */}
         <SliderBox img="https://getaround-assets.gumlet.io/images/shared/getaround_usp/getaround-usp-hero5.jpg?compress=true&h=600&mode=crop&w=400" />
       </div>
 

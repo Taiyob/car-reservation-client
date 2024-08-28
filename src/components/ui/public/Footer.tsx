@@ -1,5 +1,5 @@
-import FooterCard from "../ui/public/FooterCard";
-import FooterContent from "../ui/public/FooterContent";
+import FooterCard from "./FooterCard";
+import FooterContent from "./FooterContent";
 
 const Footer = () => {
   return (
