@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../../../styles/navbar.css";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/images/logo.png";
+import SignIn from "../../../pages/public/SignIn";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +11,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between items-center relative p-10">
+    <div className="relative flex items-center justify-between p-10">
       <div className="">
         <img src={logo} alt="logo" />
       </div>
@@ -26,7 +27,19 @@ const Navbar = () => {
             <NavLink to="/car-details">Booking</NavLink>
           </li>
           <li>
-            <NavLink to="">Contact</NavLink>
+            <NavLink to="/contact">Contact</NavLink>
+          </li>
+          <li>
+            <Link
+              to=""
+              onClick={() =>
+                (
+                  document.getElementById("my_modal_5") as HTMLDialogElement
+                ).showModal()
+              }
+            >
+              Login
+            </Link>
           </li>
           <li className="relative">
             <details className="group">
@@ -54,6 +67,7 @@ const Navbar = () => {
             </details>
           </li>
         </ul>
+        <SignIn my_modal_5="my_modal_5" />
       </div>
     </div>
   );
