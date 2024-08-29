@@ -10,6 +10,7 @@ import {
 } from "../../redux/features/auth/authSlice";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../redux/store";
 
 type TModalProps = {
   my_modal_5: string;
@@ -19,38 +20,44 @@ const SignIn = ({ my_modal_5 }: TModalProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { name, email, phone, address, password, role } = useAppSelector(
-    (state) => state.auth
+    (state: RootState) => state.auth
   );
-  const [createUser, { data }] = useCreateUserMutation();
+  const [createUser, { reset }] = useCreateUserMutation();
 
   const handleSubmitForRegistration = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const toasterId = toast.loading("User creating....");
     const registerData = { name, email, phone, address, password, role };
-    console.log(data);
-    console.log("From handle submit");
 
     try {
       const register = await createUser(registerData).unwrap();
-      console.log(data);
       navigate("/");
 
-      toast.success("Account created successfully!!!");
+      toast.success("Account created successfully!!!", {
+        id: toasterId,
+        duration: 2000,
+      });
+
+      dispatch(setName(""));
+      dispatch(setEmail(""));
+      dispatch(setPhone(""));
+      dispatch(setAddress(""));
+      dispatch(setPassword(""));
+      reset();
+
+      const loginTab = document.querySelector(
+        'input[name="my_tabs_1"][aria-label="Login"]'
+      ) as HTMLInputElement;
+
+      if (loginTab) {
+        loginTab.checked = true;
+      }
       console.log(register);
     } catch (e) {
       toast.error("something went wrong", { id: toasterId, duration: 2000 });
       console.log(e);
     }
-
-    // const form = e.target;
-    // const name = form?.name.value;
-    // const email = form?.email.value;
-    // const role = form?.role.value;
-    // const phone = form?.phone.value;
-    // const address = form?.address.value;
-
-    // const registerInfo = { name, email, role, phone, address };
-    // createUser(registerInfo);
   };
   return (
     <>
@@ -282,10 +289,12 @@ const SignIn = ({ my_modal_5 }: TModalProps) => {
 
 export default SignIn;
 
-// vai amr mike ta kaj kortese na,
-//ami ektu somossai porsi,
-//ami apnader kotha sunte pai,
-//apnara amar prob ektu dekhe diben?
-// amr api ta pai na
-// viiii???
-// hello vi? viiiii?
+// const res = await fetch("http://localhost:5000/api/auth/signup", {
+//   method: "POST",
+//   body: JSON.stringify(registerData),
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+// });
+
+// console.log(res);

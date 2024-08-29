@@ -4,6 +4,7 @@ export const baseApi = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: `http://localhost:5000/api`,
+    //baseUrl: `https://car-colledtion-reservation-backend.vercel.app/api`,
   }),
   endpoints: () => ({}),
 });
