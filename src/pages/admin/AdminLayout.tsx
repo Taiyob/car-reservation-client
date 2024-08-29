@@ -172,7 +172,9 @@ const AdminLayout = () => {
           </div>
         </div>
       </div>
-      <Outlet />
+      <div>
+        <Outlet />
+      </div>
     </div>
   );
 };
