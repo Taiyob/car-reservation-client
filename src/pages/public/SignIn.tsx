@@ -21,15 +21,18 @@ const SignIn = ({ my_modal_5 }: TModalProps) => {
   const { name, email, phone, address, password, role } = useAppSelector(
     (state) => state.auth
   );
-  const [createUser] = useCreateUserMutation();
+  const [createUser, { data }] = useCreateUserMutation();
 
   const handleSubmitForRegistration = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const toasterId = toast.loading("User creating....");
     const registerData = { name, email, phone, address, password, role };
+    console.log(data);
+    console.log("From handle submit");
 
     try {
       const register = await createUser(registerData).unwrap();
+      console.log(data);
       navigate("/");
 
       toast.success("Account created successfully!!!");
@@ -278,3 +281,11 @@ const SignIn = ({ my_modal_5 }: TModalProps) => {
 };
 
 export default SignIn;
+
+// vai amr mike ta kaj kortese na,
+//ami ektu somossai porsi,
+//ami apnader kotha sunte pai,
+//apnara amar prob ektu dekhe diben?
+// amr api ta pai na
+// viiii???
+// hello vi? viiiii?
