@@ -2,12 +2,14 @@ import { MdOutlineAutoDelete } from "react-icons/md";
 import { TCarData } from "../../../pages/admin/AllCarsTable";
 import { FcEditImage } from "react-icons/fc";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 type CarsTableProps = TCarData & {
   serialNumber: number;
 };
 
 const CarsTable = ({
+  _id,
   serialNumber,
   name,
   isDeleted,
@@ -70,7 +72,9 @@ const CarsTable = ({
       </td>
       <td className="space-x-2">
         <button className="px-4 py-1 text-white bg-purple-500 rounded-lg">
-          <FcEditImage className="size-5" />
+          <Link to={`/admin-dashboard/update-car/${_id}`}>
+            <FcEditImage className="size-5" />
+          </Link>
         </button>
         <button className="px-4 py-1 text-white bg-red-500 rounded-lg">
           <MdOutlineAutoDelete className="size-5" />

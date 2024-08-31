@@ -54,6 +54,7 @@ const AllCarsTable = () => {
                     isDeleted={car?.isDeleted}
                     features={car?.features}
                     status={car?.status}
+                    _id={car?._id}
                   />
                 ))}
               </tbody>

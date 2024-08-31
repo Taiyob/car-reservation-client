@@ -72,6 +72,10 @@ const router = createBrowserRouter([
         path: "all-car-list",
         element: <AllCarsTable />,
       },
+      {
+        path: "update-car/:id",
+        element: <AllCarsTable />,
+      },
     ],
   },
 ]);
