@@ -1,13 +1,24 @@
 import { useState } from "react";
 import "../../../styles/navbar.css";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../../assets/images/logo.png";
 import SignIn from "../../../pages/public/SignIn";
+import { useAppDispatch } from "../../../redux/hooks";
+import { logOut } from "../../../redux/features/auth/userCredentialSlice";
+import { toast } from "sonner";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const handleDropdownToggle = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleLogout = () => {
+    dispatch(logOut());
+    toast.success("You are log out successfully");
+    navigate("/");
   };
 
   return (
@@ -62,6 +73,11 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link to="">Order</Link>
+                </li>
+                <li>
+                  <Link onClick={handleLogout} to="">
+                    Logout
+                  </Link>
                 </li>
               </ul>
             </details>

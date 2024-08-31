@@ -9,6 +9,8 @@ import Contact from "../pages/public/Contact";
 import AdminLayout from "../pages/admin/AdminLayout";
 import AdminHome from "../pages/admin/AdminHome";
 import CarCreate from "../pages/admin/CarCreate";
+import ProtectedRoute from "../components/shared/ProtectedRoute";
+import Unauthenticate from "../components/shared/Unauthenticate";
 
 const router = createBrowserRouter([
   {
@@ -39,8 +41,22 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: "/unauthorize",
+    element: (
+      <Unauthenticate
+        label="Back to home"
+        address="/"
+        message="You are unauthorise user, please login!!!"
+      />
+    ),
+  },
+  {
     path: "/admin-dashboard",
-    element: <AdminLayout />,
+    element: (
+      <ProtectedRoute>
+        <AdminLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,

@@ -1,5 +1,8 @@
 import { FormEvent } from "react";
-import { useCreateUserMutation } from "../../redux/api/auth/authApi";
+import {
+  useCreateUserMutation,
+  useLoginUserMutation,
+} from "../../redux/api/auth/authApi";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   setAddress,
@@ -11,6 +14,15 @@ import {
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../redux/store";
+import {
+  setLoginEmail,
+  setLoginPassword,
+} from "../../redux/features/auth/loginSlice";
+import {
+  setUser,
+  setUserToken,
+} from "../../redux/features/auth/userCredentialSlice";
+import { jwtDecode } from "jwt-decode";
 
 type TModalProps = {
   my_modal_5: string;
@@ -22,8 +34,13 @@ const SignIn = ({ my_modal_5 }: TModalProps) => {
   const { name, email, phone, address, password, role } = useAppSelector(
     (state: RootState) => state.auth
   );
+  const { email: loginEmail, password: loginPassword } = useAppSelector(
+    (state: RootState) => state.login
+  );
   const [createUser, { reset }] = useCreateUserMutation();
+  const [loginUser] = useLoginUserMutation();
 
+  // register submit handler
   const handleSubmitForRegistration = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -59,6 +76,46 @@ const SignIn = ({ my_modal_5 }: TModalProps) => {
       console.log(e);
     }
   };
+
+  // login submit handler
+  const handleSubmitForLogin = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const toasterId = toast.loading("Logging in...");
+
+    const loginData = { email: loginEmail, password: loginPassword };
+
+    try {
+      const { data } = await loginUser(loginData).unwrap();
+      const { token } = data;
+      const user = jwtDecode(token);
+      console.log(token, "User info:", user);
+
+      toast.success("Login successful!", {
+        id: toasterId,
+        duration: 2000,
+      });
+
+      dispatch(setUserToken(token));
+      dispatch(setUser(user));
+
+      dispatch(setLoginEmail(""));
+      dispatch(setLoginPassword(""));
+
+      const modal = document.getElementById(my_modal_5) as HTMLDialogElement;
+      if (modal) {
+        modal.close();
+      }
+      navigate("/admin-dashboard");
+    } catch (e) {
+      toast.error("Login failed. Please try again.", {
+        id: toasterId,
+        duration: 2000,
+      });
+      console.log(e);
+    }
+  };
+
   return (
     <>
       <dialog
@@ -78,7 +135,7 @@ const SignIn = ({ my_modal_5 }: TModalProps) => {
               aria-label="Login"
             />
             <div role="tabpanel" className="p-10 tab-content">
-              <form method="dialog">
+              <form method="dialog" onSubmit={handleSubmitForLogin}>
                 <div className="mb-5">
                   <label
                     htmlFor="login_email"
@@ -88,7 +145,10 @@ const SignIn = ({ my_modal_5 }: TModalProps) => {
                   </label>
                   <input
                     type="email"
+                    name="email"
                     id="login_email"
+                    value={loginEmail}
+                    onChange={(e) => dispatch(setLoginEmail(e.target.value))}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@flowbite.com"
                     required
@@ -103,7 +163,10 @@ const SignIn = ({ my_modal_5 }: TModalProps) => {
                   </label>
                   <input
                     type="password"
+                    name="password"
                     id="login_password"
+                    value={loginPassword}
+                    onChange={(e) => dispatch(setLoginPassword(e.target.value))}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required
                   />
@@ -268,7 +331,7 @@ const SignIn = ({ my_modal_5 }: TModalProps) => {
                   </button>
                   <button
                     onClick={(e) => {
-                      e.preventDefault(); // Prevent form submission
+                      e.preventDefault();
                       (
                         document.getElementById(my_modal_5) as HTMLDialogElement
                       ).close();
