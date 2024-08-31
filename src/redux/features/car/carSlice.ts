@@ -7,6 +7,7 @@ type TCarState = {
   isElectric?: boolean;
   features?: string[];
   pricePerHour?: number;
+  status?: string;
   image?: string[];
 };
 
@@ -17,6 +18,7 @@ const initialState: TCarState = {
   isElectric: false,
   features: [],
   pricePerHour: 0,
+  status: "available",
   image: [],
 };
 
@@ -42,6 +44,9 @@ const carSlice = createSlice({
     setCarPricePerHour: (state, action: PayloadAction<number>) => {
       state.pricePerHour = action.payload;
     },
+    setCarStatus: (state, action: PayloadAction<string>) => {
+      state.status = action.payload;
+    },
     setCarimage: (state, action: PayloadAction<string[]>) => {
       state.image = action.payload;
     },
@@ -55,6 +60,7 @@ export const {
   setCarIsElectric,
   setCarFeatures,
   setCarPricePerHour,
+  setCarStatus,
   setCarimage,
 } = carSlice.actions;
 export default carSlice.reducer;

@@ -11,6 +11,7 @@ import {
   setCarName,
   setCarPricePerHour,
 } from "../../redux/features/car/carSlice";
+import { toast } from "sonner";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -25,6 +26,7 @@ const CarCreate = () => {
     features,
     isElectric,
     pricePerHour,
+    status,
     image,
   } = useAppSelector((state: RootState) => state.car);
   const [createCar] = useCreateCarMutation();
@@ -58,23 +60,30 @@ const CarCreate = () => {
     return imageUploadUrls;
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit = async () => {
     const uploadImageUrls = await handleImageUpload(newImages);
     console.log(uploadImageUrls);
 
-    if (uploadImageUrls) {
-      const carInfo = {
-        name: name,
-        color: color,
-        description: description,
-        isElectric: isElectric,
-        features: features,
-        pricePerHour: pricePerHour,
-        status: data.status,
-        image: [...(image || []), ...uploadImageUrls],
-      };
-      const car = await createCar(carInfo).unwrap();
-      console.log(car);
+    try {
+      if (uploadImageUrls.length > 0) {
+        const carInfo = {
+          name: name,
+          color: color,
+          description: description,
+          isElectric: isElectric,
+          features: features,
+          pricePerHour: pricePerHour,
+          status: status,
+          image: [...(image || []), ...uploadImageUrls],
+        };
+        const car = await createCar(carInfo).unwrap();
+        console.log(car);
+        reset();
+        toast.success("Car added successfully");
+      }
+    } catch (e) {
+      console.log(e);
+      toast.error("Adding Failed!!! something wrong...");
     }
   };
 
@@ -89,7 +98,7 @@ const CarCreate = () => {
   return (
     <div className="w-full px-20">
       <form onSubmit={handleSubmit(onSubmit)} className="w-2/3">
-        <h1 className="text-5xl text-purple-500 font-mono font-bold mb-8 mt-2 text-center bg-gray-100">
+        <h1 className="mt-2 mb-8 font-mono text-5xl font-bold text-center text-purple-500 bg-gray-100">
           create a car
         </h1>
         <div className="relative z-0 w-full mb-5 group">
@@ -251,12 +260,12 @@ const CarCreate = () => {
                 key={index}
                 src={preview}
                 alt={`Preview ${index}`}
-                className="w-32 h-32 object-cover mr-2 mb-2 inline-block"
+                className="inline-block object-cover w-32 h-32 mb-2 mr-2"
               />
             ))}
           </div>
         </div>
-        <div className="grid md:grid-cols-2 md:gap-6 my-5">
+        <div className="grid my-5 md:grid-cols-2 md:gap-6">
           <div className="flex items-center mb-4">
             <input
               {...register("isElectric", { required: true })}
@@ -268,7 +277,7 @@ const CarCreate = () => {
             />
             <label
               htmlFor="isElectric"
-              className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              className="text-sm font-medium text-gray-900 ms-2 dark:text-gray-300"
             >
               isElectric?
             </label>
@@ -284,7 +293,7 @@ const CarCreate = () => {
             />
             <label
               htmlFor="isDeleted"
-              className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              className="text-sm font-medium text-gray-900 ms-2 dark:text-gray-300"
             >
               isDeleted?
             </label>

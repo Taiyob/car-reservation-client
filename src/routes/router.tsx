@@ -11,6 +11,7 @@ import AdminHome from "../pages/admin/AdminHome";
 import CarCreate from "../pages/admin/CarCreate";
 import ProtectedRoute from "../components/shared/ProtectedRoute";
 import Unauthenticate from "../components/shared/Unauthenticate";
+import AllCarsTable from "../pages/admin/AllCarsTable";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: "create-car",
         element: <CarCreate />,
+      },
+      {
+        path: "all-car-list",
+        element: <AllCarsTable />,
       },
     ],
   },

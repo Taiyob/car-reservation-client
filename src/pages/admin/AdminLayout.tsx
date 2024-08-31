@@ -112,10 +112,10 @@ const AdminLayout = () => {
                   >
                     <path d="M19 13H13V19C13 19.5523 12.5523 20 12 20C11.4477 20 11 19.5523 11 19V13H5C4.44772 13 4 12.5523 4 12C4 11.4477 4.44772 11 5 11H11V5C11 4.44772 11.4477 4 12 4C12.5523 4 13 4.44772 13 5V11H19C19.5523 11 20 11.4477 20 12C20 12.5523 19.5523 13 19 13Z" />
                   </svg>
-                  <span>Manage</span>
+                  <span>Manage Car</span>
                 </button>
                 {isOpen && (
-                  <div className="absolute left-4 mt-0 bg-black border border-black rounded-md shadow-lg dark:bg-gray-800 dark:border-gray-700">
+                  <div className="absolute mt-0 bg-black border border-black rounded-md shadow-lg left-4 dark:bg-gray-800 dark:border-gray-700">
                     <NavLink
                       to="/admin-dashboard/create-car"
                       className="block px-4 py-2 text-purple-500 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-700"
@@ -123,10 +123,10 @@ const AdminLayout = () => {
                       Create
                     </NavLink>
                     <NavLink
-                      to="/admin-dashboard/update-car"
+                      to="/admin-dashboard/all-car-list"
                       className="block px-4 py-2 text-purple-500 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-700"
                     >
-                      Update
+                      All Cars
                     </NavLink>
                     <NavLink
                       to="/admin-dashboard/delete-car"

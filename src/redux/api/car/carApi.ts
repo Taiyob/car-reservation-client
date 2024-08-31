@@ -9,7 +9,13 @@ const carApi = baseApi.injectEndpoints({
         body: carInfo,
       }),
     }),
+    getAllCars: builder.query({
+      query: () => ({
+        url: "/cars",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useCreateCarMutation } = carApi;
+export const { useCreateCarMutation, useGetAllCarsQuery } = carApi;
