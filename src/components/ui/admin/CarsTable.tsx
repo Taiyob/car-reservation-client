@@ -1,6 +1,25 @@
+import { MdOutlineAutoDelete } from "react-icons/md";
 import { TCarData } from "../../../pages/admin/AllCarsTable";
+import { FcEditImage } from "react-icons/fc";
+import { useState } from "react";
 
-const CarsTable = ({ name, color, features, status }: TCarData) => {
+type CarsTableProps = TCarData & {
+  serialNumber: number;
+};
+
+const CarsTable = ({
+  serialNumber,
+  name,
+  isDeleted,
+  features,
+  status,
+}: CarsTableProps) => {
+  const [isSwapped, setIsSwapped] = useState(isDeleted);
+
+  const handleSwap = () => {
+    setIsSwapped(!isSwapped);
+  };
+
   return (
     <tr>
       <th>
@@ -8,7 +27,7 @@ const CarsTable = ({ name, color, features, status }: TCarData) => {
           <input type="checkbox" className="checkbox" title="table-checkbox" />
         </label>
       </th>
-      <th>1</th>
+      <th>{serialNumber}</th>
       <td>
         <div className="flex items-center gap-3">
           <div className="avatar">
@@ -25,21 +44,36 @@ const CarsTable = ({ name, color, features, status }: TCarData) => {
           </div>
         </div>
       </td>
-      <td>{color}</td>
+      {/* <td>
+        {isDeleted ? (
+          <input type="checkbox" className="checkbox" disabled defaultChecked />
+        ) : (
+          <input type="checkbox" defaultChecked className="checkbox " />
+        )}
+      </td> */}
       <td>
-        {features.map((feature) => (
-          <ul>
+        <label className="swap">
+          <input type="checkbox" checked={isSwapped} onChange={handleSwap} />
+          <div className="text-sm swap-on">Restore</div>
+          <div className="text-sm swap-off">Delete</div>
+        </label>
+      </td>
+      <td>
+        {features.map((feature, index) => (
+          <ul key={index}>
             <li>{feature}</li>
           </ul>
         ))}
       </td>
-      <td>{status}</td>
+      <td>
+        <div className="badge badge-accent">{status}</div>
+      </td>
       <td className="space-x-2">
-        <button className="px-6 py-3 text-white bg-purple-500 rounded-lg">
-          update
+        <button className="px-4 py-1 text-white bg-purple-500 rounded-lg">
+          <FcEditImage className="size-5" />
         </button>
-        <button className="px-6 py-3 text-white bg-red-500 rounded-lg">
-          delete
+        <button className="px-4 py-1 text-white bg-red-500 rounded-lg">
+          <MdOutlineAutoDelete className="size-5" />
         </button>
       </td>
     </tr>

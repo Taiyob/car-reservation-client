@@ -5,24 +5,24 @@ export type TCarData = {
   _id?: string;
   name: string;
   image?: string[];
-  color: string;
+  color?: string;
   description?: string;
   isElectric?: boolean;
   features: string[];
   pricePerHour?: number;
   status: string;
-  isDeleted?: boolean;
+  isDeleted: boolean;
 };
 
 const AllCarsTable = () => {
   const { data } = useGetAllCarsQuery(undefined);
   console.log(data);
   return (
-    <div className="w-full h-screen bg-gradient-to-r from-blue-300 via-purple-400 to-pink-200">
-      <h1 className="my-2 text-4xl font-bold text-center text-white underline">
+    <div className="w-full h-screen bg-gradient-to-br from-white via-purple-600 to-black">
+      <h1 className="my-2 text-4xl font-bold text-center text-black underline">
         All Cars List & Details
       </h1>
-      <div className="w-full px-10 mt-5">
+      <div className="w-full px-10 mt-10">
         <div className="w-full">
           <div className="overflow-x-auto">
             <table className="table table-xs">
@@ -39,18 +39,19 @@ const AllCarsTable = () => {
                   </th>
                   <th>SL</th>
                   <th>Name & Pictures</th>
-                  <th>Color</th>
+                  <th>Is Delete?</th>
                   <th>Features</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody className="text-lg text-black">
-                {data?.data?.map((car: TCarData) => (
+                {data?.data?.map((car: TCarData, index: number) => (
                   <CarsTable
                     key={car?._id}
+                    serialNumber={index + 1}
                     name={car?.name}
-                    color={car?.color}
+                    isDeleted={car?.isDeleted}
                     features={car?.features}
                     status={car?.status}
                   />
