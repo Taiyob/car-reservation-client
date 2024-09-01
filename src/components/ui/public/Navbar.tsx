@@ -11,13 +11,14 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
+
   const handleDropdownToggle = () => {
     setIsOpen(!isOpen);
   };
 
   const handleLogout = () => {
     dispatch(logOut());
-    toast.success("You are log out successfully");
+    toast.success("You are logged out successfully");
     navigate("/");
   };
 
@@ -53,34 +54,29 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="relative">
-            <details className="group">
-              <summary
-                className="cursor-pointer"
-                onClick={handleDropdownToggle}
-              >
-                User
-              </summary>
-              <ul
-                className={`dropdown-menu ${
-                  isOpen ? "block" : "hidden"
-                } p-5 space-y-5`}
-              >
-                <li>
-                  <Link to="">Profile</Link>
-                </li>
-                <li>
-                  <Link to="">Change Password</Link>
-                </li>
-                <li>
-                  <Link to="">Order</Link>
-                </li>
-                <li>
-                  <Link onClick={handleLogout} to="">
-                    Logout
-                  </Link>
-                </li>
-              </ul>
-            </details>
+            <summary className="cursor-pointer" onClick={handleDropdownToggle}>
+              User
+            </summary>
+            <ul
+              className={`dropdown-menu ${
+                isOpen ? "block" : "hidden"
+              } p-5 space-y-5`}
+            >
+              <li>
+                <Link to="">Profile</Link>
+              </li>
+              <li>
+                <Link to="">Change Password</Link>
+              </li>
+              <li>
+                <Link to="">Order</Link>
+              </li>
+              <li>
+                <button type="button" onClick={handleLogout}>
+                  Logout
+                </button>
+              </li>
+            </ul>
           </li>
         </ul>
         <SignIn my_modal_5="my_modal_5" />

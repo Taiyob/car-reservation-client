@@ -35,3 +35,8 @@ li {
   margin: 0;
   padding: 0;
 }
+
+.dropdown-menu button {
+  cursor: pointer;
+  pointer-events: auto;
+}

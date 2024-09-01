@@ -12,6 +12,7 @@ import CarCreate from "../pages/admin/CarCreate";
 import ProtectedRoute from "../components/shared/ProtectedRoute";
 import Unauthenticate from "../components/shared/Unauthenticate";
 import AllCarsTable from "../pages/admin/AllCarsTable";
+import CarUpdate from "../pages/admin/CarUpdate";
 
 const router = createBrowserRouter([
   {
@@ -74,7 +75,7 @@ const router = createBrowserRouter([
       },
       {
         path: "update-car/:id",
-        element: <AllCarsTable />,
+        element: <CarUpdate />,
       },
     ],
   },

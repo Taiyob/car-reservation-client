@@ -12,11 +12,14 @@ import {
   setCarPricePerHour,
 } from "../../redux/features/car/carSlice";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+//import { RxCrossCircled } from "react-icons/rx";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const CarCreate = () => {
+  const navigate = useNavigate();
   const { register, handleSubmit, reset } = useForm();
   const dispatch = useAppDispatch();
   const {
@@ -45,11 +48,19 @@ const CarCreate = () => {
         const response = await fetch(image_hosting_api, {
           method: "POST",
           body: formData,
+          mode: "cors",
         });
+        console.log(response);
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Upload error:", errorData);
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
+        console.log("API reference", data);
         if (data?.status === 200) {
           console.log(data);
-          imageUploadUrls.push(data?.data?.url);
+          imageUploadUrls.push(data?.data?.display_url);
         } else {
           console.error("Image upload failed", data?.error?.message);
         }
@@ -80,6 +91,7 @@ const CarCreate = () => {
         console.log(car);
         reset();
         toast.success("Car added successfully");
+        navigate("/admin-dashboard/all-car-list");
       }
     } catch (e) {
       console.log(e);
@@ -94,6 +106,12 @@ const CarCreate = () => {
       setImagePreviews(files.map((file) => URL.createObjectURL(file)));
     }
   };
+
+  // const handleRemoveImage = (indexToRemove: number) => {
+  //   setImagePreviews((prevPreviews) =>
+  //     prevPreviews.filter((_, index) => index !== indexToRemove)
+  //   );
+  // };
 
   return (
     <div className="w-full px-20">
@@ -217,7 +235,7 @@ const CarCreate = () => {
             Description
           </label>
         </div>
-        <div className="flex items-center justify-center w-full">
+        {/* <div className="flex items-center justify-center w-full">
           <label
             htmlFor="dropzone-file"
             className="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500"
@@ -264,7 +282,64 @@ const CarCreate = () => {
               />
             ))}
           </div>
-        </div>
+        </div> */}
+        {imagePreviews.length > 0 ? (
+          <div className="mt-3 ml-5">
+            {imagePreviews.map((preview, index) => (
+              <div key={index} className="relative inline-block mb-2 mr-2">
+                <img
+                  src={preview}
+                  alt={`Preview ${index}`}
+                  className="object-cover w-32 h-32"
+                />
+                {/* <button
+                  onClick={() => handleRemoveImage(index)}
+                  className="absolute top-0 right-0 p-1 text-white bg-red-600 rounded-full"
+                >
+                  &times;
+                  <RxCrossCircled />
+                </button> */}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <label
+            htmlFor="dropzone-file"
+            className="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500"
+          >
+            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+              <svg
+                className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 16"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                />
+              </svg>
+              <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                <span className="font-semibold">Click to upload</span> or drag
+                and drop
+              </p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                SVG, PNG, JPG or GIF (MAX. 800x400px)
+              </p>
+            </div>
+            <input
+              {...register("image")}
+              onChange={handleImageChange}
+              id="dropzone-file"
+              type="file"
+              className="hidden image"
+            />
+          </label>
+        )}
         <div className="grid my-5 md:grid-cols-2 md:gap-6">
           <div className="flex items-center mb-4">
             <input
@@ -311,3 +386,7 @@ const CarCreate = () => {
 };
 
 export default CarCreate;
+
+// //headers: { "Content-Type": "multipart/form-data" },
+////imageUploadUrls.push(data?.data?.url);
+//imageUploadUrls.push(data?.data?.url_viewer);
