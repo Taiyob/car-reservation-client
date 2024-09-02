@@ -1,5 +1,5 @@
 import { TCarData } from "../../../pages/admin/AllCarsTable";
-import { TResponseRedux } from "../../../types/global";
+import { TQueryParam, TResponseRedux } from "../../../types/global";
 import { baseApi } from "../baseApi";
 
 const carApi = baseApi.injectEndpoints({
@@ -12,16 +12,31 @@ const carApi = baseApi.injectEndpoints({
       }),
     }),
     getAllCars: builder.query({
-      query: () => ({
-        url: "/cars",
-        method: "GET",
-      }),
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((item: TQueryParam) => {
+            params.append(item.name, item.value as string);
+          });
+        }
+        return {
+          url: "/cars",
+          method: "GET",
+          params: params,
+        };
+      },
       transformResponse: (response: TResponseRedux<TCarData[]>) => {
         return {
           data: response.data,
           meta: response.meta,
         };
       },
+    }),
+    getCarsImage: builder.query({
+      query: () => ({
+        url: `/cars/image`,
+        method: "GET",
+      }),
     }),
     getSingleCar: builder.query({
       query: (id) => ({
@@ -48,6 +63,7 @@ const carApi = baseApi.injectEndpoints({
 export const {
   useCreateCarMutation,
   useGetAllCarsQuery,
+  useGetCarsImageQuery,
   useGetSingleCarQuery,
   useUpdateCarMutation,
   useDeleteCarMutation,

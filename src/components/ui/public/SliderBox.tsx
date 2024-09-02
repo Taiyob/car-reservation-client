@@ -3,13 +3,16 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
 type TSliderProps = {
-  img: string;
+  images: string[];
 };
 
-export default function SliderBox({ img }: TSliderProps) {
+export default function SliderBox({ images }: TSliderProps) {
   const [sliderRef] = useKeenSlider<HTMLDivElement>(
     {
       loop: true,
+      slideChanged(slider) {
+        console.log("Slide changed to index:", slider.track.details.rel);
+      },
     },
     [
       (slider) => {
@@ -22,7 +25,9 @@ export default function SliderBox({ img }: TSliderProps) {
           clearTimeout(timeout);
           if (mouseOver) return;
           timeout = setTimeout(() => {
-            slider.next();
+            if (slider.track.details.abs < slider.track.details.max) {
+              slider.next();
+            }
           }, 2000);
         }
         slider.on("created", () => {
@@ -44,27 +49,12 @@ export default function SliderBox({ img }: TSliderProps) {
   );
 
   return (
-    <>
-      <div ref={sliderRef} className="keen-slider">
-        <div className="keen-slider__slide number-slide1">
-          <img src={img} alt="" />
+    <div ref={sliderRef} className="keen-slider">
+      {images.map((img, index) => (
+        <div key={index} className="keen-slider__slide">
+          <img src={img} alt={`Slide ${index}`} className="w-full h-full" />
         </div>
-        <div className="keen-slider__slide number-slide2">
-          <img src={img} alt="" />
-        </div>
-        <div className="keen-slider__slide number-slide3">
-          <img src={img} alt="" />
-        </div>
-        <div className="keen-slider__slide number-slide4">
-          <img src={img} alt="" />
-        </div>
-        <div className="keen-slider__slide number-slide5">
-          <img src={img} alt="" />
-        </div>
-        <div className="keen-slider__slide number-slide6">
-          <img src={img} alt="" />
-        </div>
-      </div>
-    </>
+      ))}
+    </div>
   );
 }

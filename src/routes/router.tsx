@@ -13,6 +13,7 @@ import ProtectedRoute from "../components/shared/ProtectedRoute";
 import Unauthenticate from "../components/shared/Unauthenticate";
 import AllCarsTable from "../pages/admin/AllCarsTable";
 import CarUpdate from "../pages/admin/CarUpdate";
+import CarBooking from "../pages/public/CarBooking";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/car-details",
         element: <CarDetailsPage />,
+      },
+      {
+        path: "/car-booking",
+        element: <CarBooking />,
       },
       {
         path: "/about-us",

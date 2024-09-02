@@ -1,11 +1,23 @@
+import { useEffect, useState } from "react";
+import { useGetCarsImageQuery } from "../../../redux/api/car/carApi";
 import SliderBox from "./SliderBox";
 
 const Slider = () => {
+  const [images, setImages] = useState<string[]>([]);
+  const { data } = useGetCarsImageQuery(undefined);
+
+  useEffect(() => {
+    if (data?.data) {
+      const imageUrls = data.data.flatMap((item: any) => item.image);
+      setImages(imageUrls);
+    }
+  }, [data]);
+
   return (
     <div className="flex items-center justify-start min-h-screen py-8 pl-56 bg-gray-100">
-      {/* Left side with the image */}
+      {/* Left side with the image slider */}
       <div className="relative w-1/4 left-28">
-        <SliderBox img="https://getaround-assets.gumlet.io/images/shared/getaround_usp/getaround-usp-hero5.jpg?compress=true&h=600&mode=crop&w=400" />
+        {images.length > 0 ? <SliderBox images={images} /> : <p>Loading...</p>}
       </div>
 
       {/* Right side with the text */}

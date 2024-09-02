@@ -20,7 +20,6 @@ import { toast } from "sonner";
 const CarUpdate = () => {
   const { id } = useParams<string>();
   const { data, isLoading } = useGetSingleCarQuery(id);
-  console.log(id);
   const [updateCar] = useUpdateCarMutation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -185,7 +184,7 @@ const CarUpdate = () => {
           >
             Features
           </label>
-          <ul className="list-disc pl-5">
+          <ul className="pl-5 list-disc">
             {carFeatures.map((feature, index) => (
               <li
                 key={index}
@@ -204,9 +203,9 @@ const CarUpdate = () => {
           </ul>
           <input
             type="text"
-            id="newFeature"
+            id="features"
             placeholder="Add new feature"
-            className="mt-2 block w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            className="block w-full mt-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
             onKeyDown={handleAddFeature}
           />
         </div>
@@ -335,7 +334,7 @@ const CarUpdate = () => {
             type="file"
             id="imageUpload"
             onChange={handleImageChange}
-            className="mt-2 block w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg cursor-pointer dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            className="block w-full mt-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
             multiple
           />
         </div>

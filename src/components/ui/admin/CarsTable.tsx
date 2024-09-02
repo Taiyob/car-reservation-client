@@ -26,7 +26,7 @@ const CarsTable = ({
   };
 
   const handleDelete = async (id: string) => {
-    console.log(id);
+    //console.log(id);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -50,11 +50,19 @@ const CarsTable = ({
           }
         } catch (error) {
           console.log(error);
-          Swal.fire({
-            title: "Deleted!",
-            text: "Something went wrong.",
-            icon: "error",
-          });
+          if ((error as any)?.status === 404) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Already deleted this item.",
+              icon: "error",
+            });
+          } else {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Something went wrong.",
+              icon: "error",
+            });
+          }
         }
       }
     });

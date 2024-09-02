@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const token = useAppSelector(selectCurrentToken);
-  console.log(token);
+  //console.log(token);
   //const dispatch = useAppDispatch();
 
   if (!token) {
