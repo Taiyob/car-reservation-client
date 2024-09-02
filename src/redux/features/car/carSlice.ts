@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type TCarState = {
+export type TCarState = {
   name?: string;
   description?: string;
   color?: string;

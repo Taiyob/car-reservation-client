@@ -1,28 +1,22 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
-type TUserAction = {
+export type TUser = {
   _id: string;
   email: string;
-  role: string;
-  exp: string;
-  iat: string;
+  userRole: string;
+  exp: number;
+  iat: number;
 };
 
 type TUserCredentialState = {
   token: string | null;
-  user: TUserAction | null;
+  user: TUser | null;
 };
 
 const initialState: TUserCredentialState = {
   token: null,
-  user: {
-    _id: "",
-    email: "",
-    role: "",
-    exp: "",
-    iat: "",
-  },
+  user: null,
 };
 
 const userCredentialSlice = createSlice({

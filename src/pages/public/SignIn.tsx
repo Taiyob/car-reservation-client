@@ -21,6 +21,7 @@ import {
 import {
   setUser,
   setUserToken,
+  TUser,
 } from "../../redux/features/auth/userCredentialSlice";
 import { jwtDecode } from "jwt-decode";
 
@@ -88,13 +89,8 @@ const SignIn = ({ my_modal_5 }: TModalProps) => {
     try {
       const { data } = await loginUser(loginData).unwrap();
       const { token } = data;
-      const user = jwtDecode(token);
+      const user = jwtDecode(token) as TUser;
       console.log(token, "User info:", user);
-
-      toast.success("Login successful!", {
-        id: toasterId,
-        duration: 2000,
-      });
 
       dispatch(setUserToken(token));
       dispatch(setUser(user));
@@ -106,7 +102,13 @@ const SignIn = ({ my_modal_5 }: TModalProps) => {
       if (modal) {
         modal.close();
       }
-      navigate("/admin-dashboard");
+
+      toast.success("Login successful!", {
+        id: toasterId,
+        duration: 2000,
+      });
+
+      navigate(`/${user?.userRole}-dashboard`);
     } catch (e) {
       toast.error("Login failed. Please try again.", {
         id: toasterId,

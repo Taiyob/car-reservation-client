@@ -3,13 +3,18 @@ import "../../../styles/navbar.css";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../../assets/images/logo.png";
 import SignIn from "../../../pages/public/SignIn";
-import { useAppDispatch } from "../../../redux/hooks";
-import { logOut } from "../../../redux/features/auth/userCredentialSlice";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import {
+  logOut,
+  selectCurrentUser,
+} from "../../../redux/features/auth/userCredentialSlice";
 import { toast } from "sonner";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const user = useAppSelector(selectCurrentUser);
+  console.log("Active user email:", user?.email);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleDropdownToggle = () => {
@@ -41,43 +46,49 @@ const Navbar = () => {
           <li>
             <NavLink to="/contact">Contact</NavLink>
           </li>
-          <li>
-            <Link
-              to=""
-              onClick={() =>
-                (
-                  document.getElementById("my_modal_5") as HTMLDialogElement
-                ).showModal()
-              }
-            >
-              Login
-            </Link>
-          </li>
-          <li className="relative">
-            <summary className="cursor-pointer" onClick={handleDropdownToggle}>
-              User
-            </summary>
-            <ul
-              className={`dropdown-menu ${
-                isOpen ? "block" : "hidden"
-              } p-5 space-y-5`}
-            >
-              <li>
-                <Link to="">Profile</Link>
-              </li>
-              <li>
-                <Link to="">Change Password</Link>
-              </li>
-              <li>
-                <Link to="">Order</Link>
-              </li>
-              <li>
-                <button type="button" onClick={handleLogout}>
-                  Logout
-                </button>
-              </li>
-            </ul>
-          </li>
+          {user?.email ? (
+            <li className="relative">
+              <summary
+                className="cursor-pointer"
+                onClick={handleDropdownToggle}
+              >
+                User
+              </summary>
+              <ul
+                className={`dropdown-menu ${
+                  isOpen ? "block" : "hidden"
+                } p-5 space-y-5`}
+              >
+                <li>
+                  <Link to="">Profile</Link>
+                </li>
+                <li>
+                  <Link to="">Change Password</Link>
+                </li>
+                <li>
+                  <Link to="">Order</Link>
+                </li>
+                <li>
+                  <button type="button" onClick={handleLogout}>
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            </li>
+          ) : (
+            <li>
+              <Link
+                to=""
+                onClick={() =>
+                  (
+                    document.getElementById("my_modal_5") as HTMLDialogElement
+                  ).showModal()
+                }
+              >
+                Login
+              </Link>
+            </li>
+          )}
         </ul>
         <SignIn my_modal_5="my_modal_5" />
       </div>
