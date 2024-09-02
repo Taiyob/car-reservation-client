@@ -3,6 +3,8 @@ import { TCarData } from "../../../pages/admin/AllCarsTable";
 import { FcEditImage } from "react-icons/fc";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDeleteCarMutation } from "../../../redux/api/car/carApi";
+import Swal from "sweetalert2";
 
 type CarsTableProps = TCarData & {
   serialNumber: number;
@@ -17,9 +19,45 @@ const CarsTable = ({
   status,
 }: CarsTableProps) => {
   const [isSwapped, setIsSwapped] = useState(isDeleted);
+  const [deleteCar] = useDeleteCarMutation();
 
   const handleSwap = () => {
     setIsSwapped(!isSwapped);
+  };
+
+  const handleDelete = async (id: string) => {
+    console.log(id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const deletedItem = await deleteCar(id).unwrap();
+          if (deletedItem.success) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Car is deleted successfully",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        } catch (error) {
+          console.log(error);
+          Swal.fire({
+            title: "Deleted!",
+            text: "Something went wrong.",
+            icon: "error",
+          });
+        }
+      }
+    });
   };
 
   return (
@@ -76,7 +114,10 @@ const CarsTable = ({
             <FcEditImage className="size-5" />
           </Link>
         </button>
-        <button className="px-4 py-1 text-white bg-red-500 rounded-lg">
+        <button
+          onClick={() => handleDelete(_id || "default-id")}
+          className="px-4 py-1 text-white bg-red-500 rounded-lg"
+        >
           <MdOutlineAutoDelete className="size-5" />
         </button>
       </td>
