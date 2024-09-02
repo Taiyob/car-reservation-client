@@ -1,3 +1,5 @@
+import { TCarData } from "../../../pages/admin/AllCarsTable";
+import { TResponseRedux } from "../../../types/global";
 import { baseApi } from "../baseApi";
 
 const carApi = baseApi.injectEndpoints({
@@ -14,6 +16,12 @@ const carApi = baseApi.injectEndpoints({
         url: "/cars",
         method: "GET",
       }),
+      transformResponse: (response: TResponseRedux<TCarData[]>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
     }),
     getSingleCar: builder.query({
       query: (id) => ({
