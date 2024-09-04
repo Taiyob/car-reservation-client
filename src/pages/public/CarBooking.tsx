@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import carBookingImage1 from "../../assets/images/carBooking.jpg";
 
 const CarBooking = () => {
@@ -8,7 +8,7 @@ const CarBooking = () => {
   const [mileage, setMileage] = useState("125-200,000 mi");
   const [city, setCity] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!city) {
       alert("Please select a city to continue.");

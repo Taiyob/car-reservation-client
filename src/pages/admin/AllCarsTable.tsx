@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CarsTable from "../../components/ui/admin/CarsTable";
 import { useGetAllCarsQuery } from "../../redux/api/car/carApi";
-import { TQueryParam } from "../../types/global";
+import Loader from "../../components/shared/Loader";
 
 export type TCarData = {
   _id?: string;
@@ -17,21 +17,17 @@ export type TCarData = {
 };
 
 const AllCarsTable = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [params, setParams] = useState<TQueryParam[]>([]);
   const [page, setPage] = useState(1);
   const [sortField, setSortField] = useState("name");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+
   const { data, isLoading } = useGetAllCarsQuery([
     { name: "limit", value: 5 },
     { name: "page", value: page },
-    //{ name: "sort", value: "email" },
     { name: "sort", value: `${sortField},${sortOrder}` },
-    ...params,
   ]);
+
   const metaData = data?.meta;
-  //const { limit, total, totalPage = 1 } = metaData || {};
-  //console.log(data);
   const { totalPage = 1 } = metaData || {};
 
   const handlePreviousPage = () => {
@@ -64,7 +60,8 @@ const AllCarsTable = () => {
         <div className="w-full">
           <div className="overflow-x-auto">
             {isLoading ? (
-              <p>Loading...</p>
+              //<p>Loading...</p>
+              <Loader smallHeight />
             ) : (
               <table className="table table-xs">
                 <thead className="text-xl font-bold text-black">
