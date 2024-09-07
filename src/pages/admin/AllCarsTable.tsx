@@ -60,8 +60,9 @@ const AllCarsTable = () => {
         <div className="w-full">
           <div className="overflow-x-auto">
             {isLoading ? (
-              //<p>Loading...</p>
-              <Loader smallHeight />
+              <div className="flex justify-center items-center h-full">
+                <span className="loading loading-spinner loading-lg"></span>
+              </div>
             ) : (
               <table className="table table-xs">
                 <thead className="text-xl font-bold text-black">
@@ -84,17 +85,28 @@ const AllCarsTable = () => {
                   </tr>
                 </thead>
                 <tbody className="text-lg text-black">
-                  {data?.data?.map((car: TCarData, index: number) => (
-                    <CarsTable
-                      key={car?._id}
-                      serialNumber={index + 1 + (page - 1) * 5}
-                      name={car?.name}
-                      isDeleted={car?.isDeleted}
-                      features={car?.features}
-                      status={car?.status}
-                      _id={car?._id}
-                    />
-                  ))}
+                  {isLoading ? (
+                    <tr>
+                      <td colSpan={7} className="h-96">
+                        <div className="flex justify-center items-center h-full">
+                          <Loader smallHeight />
+                          <span className="loading loading-spinner loading-lg"></span>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : (
+                    data?.data?.map((car: TCarData, index: number) => (
+                      <CarsTable
+                        key={car?._id}
+                        serialNumber={index + 1 + (page - 1) * 5}
+                        name={car?.name}
+                        isDeleted={car?.isDeleted}
+                        features={car?.features}
+                        status={car?.status}
+                        _id={car?._id}
+                      />
+                    ))
+                  )}
                 </tbody>
               </table>
             )}

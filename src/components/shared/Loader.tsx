@@ -15,7 +15,8 @@ const Loader = ({ smallHeight }: TLoaderProps) => {
     >
       <ScaleLoader
         cssOverride={{ height: "100px", width: "10px" }}
-        color="red"
+        color="black"
+        loading={true}
       />
     </div>
   );

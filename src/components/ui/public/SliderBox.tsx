@@ -11,7 +11,7 @@ export default function SliderBox({ images }: TSliderProps) {
     {
       loop: true,
       slideChanged(slider) {
-        console.log("Slide changed to index:", slider.track.details.rel);
+        //console.log("Slide changed to index:", slider.track.details.rel);
       },
     },
     [

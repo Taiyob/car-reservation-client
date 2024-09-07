@@ -29,10 +29,10 @@ const Navbar = () => {
 
   return (
     <div className="relative flex items-center justify-between p-10">
-      <div className="">
+      <div>
         <img src={logo} alt="logo" />
       </div>
-      <div className="">
+      <div>
         <ul className="flex space-x-5 text-2xl font-semibold">
           <li>
             <NavLink to="/">Home</NavLink>
@@ -48,25 +48,22 @@ const Navbar = () => {
           </li>
           {user?.email ? (
             <li className="relative">
-              <summary
-                className="cursor-pointer"
-                onClick={handleDropdownToggle}
-              >
+              <button className="cursor-pointer" onClick={handleDropdownToggle}>
                 User
-              </summary>
+              </button>
               <ul
                 className={`dropdown-menu ${
                   isOpen ? "block" : "hidden"
                 } p-5 space-y-5`}
               >
                 <li>
-                  <Link to="">Profile</Link>
+                  <Link to="/profile">Profile</Link>
                 </li>
                 <li>
-                  <Link to="">Change Password</Link>
+                  <Link to="/change-password">Change Password</Link>
                 </li>
                 <li>
-                  <Link to="">Order</Link>
+                  <Link to="/admin-dashboard">Dashboard</Link>
                 </li>
                 <li>
                   <button type="button" onClick={handleLogout}>

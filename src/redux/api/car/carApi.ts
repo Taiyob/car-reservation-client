@@ -32,6 +32,12 @@ const carApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getAvailableCars: builder.query({
+      query: () => ({
+        url: `/cars/available-car`,
+        method: `GET`,
+      }),
+    }),
     getCarsImage: builder.query({
       query: () => ({
         url: `/cars/image`,
@@ -63,6 +69,7 @@ const carApi = baseApi.injectEndpoints({
 export const {
   useCreateCarMutation,
   useGetAllCarsQuery,
+  useGetAvailableCarsQuery,
   useGetCarsImageQuery,
   useGetSingleCarQuery,
   useUpdateCarMutation,
