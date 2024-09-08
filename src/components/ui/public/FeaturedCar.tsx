@@ -17,9 +17,9 @@ const FeaturedCar = () => {
       <div className="bg-gray-100">
         <div className="flex items-center justify-center w-4/5">
           <div className="flex flex-wrap">
-            {data?.data?.map((item: any) => {
+            {data?.data?.map((item: any, index: number) => {
               const imgUrl = item.image[0];
-              return <FeaturedCarCard key={item.image} imgUrl={imgUrl} />;
+              return <FeaturedCarCard key={index} imgUrl={imgUrl} />;
             })}
           </div>
           <div className="w-1/2 space-y-4">

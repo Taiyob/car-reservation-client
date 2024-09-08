@@ -1,4 +1,4 @@
-type TBookingTableProps = {
+export type TBookingTableProps = {
   name?: string;
   startTime: string;
   endTime: string;
@@ -58,9 +58,9 @@ const BookingTable = ({
       <td>
         {startTime}
         <br />
-        <span className="badge badge-ghost badge-sm">
+        {/* <span className="badge badge-ghost badge-sm">
           Desktop Support Technician
-        </span>
+        </span> */}
       </td>
       <td>{endTime}</td>
       <td>{totalCost}</td>

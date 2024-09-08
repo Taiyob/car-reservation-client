@@ -26,6 +26,7 @@ const Banner = () => {
             <div className="relative">
               <IoLocationSharp className="absolute text-gray-500 transform -translate-y-1/2 left-3 top-1/2 size-6" />
               <input
+                name='aearching-address'
                 className="w-full px-10 py-5 pl-10 text-2xl bg-gray-100 rounded-full"
                 type="text"
                 placeholder="Specific address, station...."

@@ -15,6 +15,7 @@ import AllCarsTable from "../pages/admin/AllCarsTable";
 import CarUpdate from "../pages/admin/CarUpdate";
 import CarBooking from "../pages/public/CarBooking";
 import AllBookings from "../pages/admin/AllBookings";
+import MyBookings from "../pages/admin/MyBookings";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
       {
         path: "all-bookings",
         element: <AllBookings />,
+      },
+      {
+        path: "my-bookings",
+        element: <MyBookings />,
       },
     ],
   },

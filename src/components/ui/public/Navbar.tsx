@@ -35,16 +35,60 @@ const Navbar = () => {
       <div>
         <ul className="flex space-x-5 text-2xl font-semibold">
           <li>
-            <NavLink to="/">Home</NavLink>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `${
+                  isActive
+                    ? "bg-purple-300 text-black rounded-lg p-2"
+                    : "text-black"
+                }`
+              }
+            >
+              Home
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/about-us">About Us</NavLink>
+            <NavLink
+              to="/about-us"
+              className={({ isActive }) =>
+                `${
+                  isActive
+                    ? "bg-purple-300 text-black rounded-lg p-2"
+                    : "text-black"
+                }`
+              }
+            >
+              About Us
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/car-booking">Booking</NavLink>
+            <NavLink
+              to="/car-booking"
+              className={({ isActive }) =>
+                `${
+                  isActive
+                    ? "bg-purple-300 text-black rounded-lg p-2"
+                    : "text-black"
+                }`
+              }
+            >
+              Booking
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/contact">Contact</NavLink>
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                `${
+                  isActive
+                    ? "bg-purple-300 text-black rounded-lg p-2"
+                    : "text-black"
+                }`
+              }
+            >
+              Contact
+            </NavLink>
           </li>
           {user?.email ? (
             <li className="relative">

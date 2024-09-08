@@ -70,6 +70,7 @@ const AllCarsTable = () => {
                     <th>
                       <label>
                         <input
+                          name='check-all-cars'
                           type="checkbox"
                           className="checkbox"
                           title="table-checkbox"
