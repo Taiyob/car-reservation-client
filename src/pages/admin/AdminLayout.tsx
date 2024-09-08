@@ -128,12 +128,6 @@ const AdminLayout = () => {
                     >
                       All Cars
                     </NavLink>
-                    <NavLink
-                      to="/admin-dashboard/delete-car"
-                      className="block px-4 py-2 text-purple-500 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-700"
-                    >
-                      Delete
-                    </NavLink>
                   </div>
                 )}
               </li>
@@ -141,7 +135,7 @@ const AdminLayout = () => {
               <li className="rounded-sm">
                 <NavLink
                   rel="noopener noreferrer"
-                  to=""
+                  to="/admin-dashboard/all-bookings"
                   className="flex items-center p-2 space-x-3 rounded-md"
                 >
                   <svg

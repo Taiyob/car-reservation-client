@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
 export type TUser = {
+  [x: string]: any;
   _id: string;
   email: string;
   userRole: string;
@@ -9,7 +10,7 @@ export type TUser = {
   iat: number;
 };
 
-type TUserCredentialState = {
+export type TUserCredentialState = {
   token: string | null;
   user: TUser | null;
 };

@@ -18,9 +18,8 @@ const FeaturedCar = () => {
         <div className="flex items-center justify-center w-4/5">
           <div className="flex flex-wrap">
             {data?.data?.map((item: any) => {
-              // Assuming `item.image` is an array and you want to use the first image
               const imgUrl = item.image[0];
-              return <FeaturedCarCard key={item._id} imgUrl={imgUrl} />;
+              return <FeaturedCarCard key={item.image} imgUrl={imgUrl} />;
             })}
           </div>
           <div className="w-1/2 space-y-4">

@@ -14,6 +14,7 @@ import Unauthenticate from "../components/shared/Unauthenticate";
 import AllCarsTable from "../pages/admin/AllCarsTable";
 import CarUpdate from "../pages/admin/CarUpdate";
 import CarBooking from "../pages/public/CarBooking";
+import AllBookings from "../pages/admin/AllBookings";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
       {
         path: "update-car/:id",
         element: <CarUpdate />,
+      },
+      {
+        path: "all-bookings",
+        element: <AllBookings />,
       },
     ],
   },

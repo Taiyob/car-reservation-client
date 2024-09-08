@@ -11,7 +11,10 @@ import { useForm } from "react-hook-form";
 import { useCreateBookingMutation } from "../../redux/api/booking/bookingApi";
 import { toast } from "sonner";
 import { useAppSelector } from "../../redux/hooks";
-import { selectCurrentUser } from "../../redux/features/auth/userCredentialSlice";
+import {
+  selectCurrentUser,
+  TUser,
+} from "../../redux/features/auth/userCredentialSlice";
 import { useGetAvailableCarsQuery } from "../../redux/api/car/carApi";
 import { TCarData } from "../admin/AllCarsTable";
 //import bg from "../../assets/images/bg_booking.avif";
@@ -26,7 +29,9 @@ type TBookingInfo = {
 const CarBooking = () => {
   const { data } = useGetAvailableCarsQuery(undefined);
   const [createBooking] = useCreateBookingMutation();
-  const user = useAppSelector(selectCurrentUser);
+  const user = useAppSelector(selectCurrentUser) as TUser;
+  const userInfo = user?.user;
+  const _id = userInfo?._id;
 
   const { handleSubmit, reset, register, watch } = useForm<TBookingInfo>();
 
@@ -66,14 +71,19 @@ const CarBooking = () => {
   const onSubmit = async (data: TBookingInfo) => {
     console.log(data);
     const carId = watch("car");
+    if (!_id) {
+      toast.error("Please login your account");
+      return;
+    }
     const bookingData = {
       ...data,
       date: range[0].startDate.toISOString(),
       endDate: range[0].endDate.toISOString(),
-      user: user?.user?._id,
+      user: _id,
       car: carId,
+      totalCost: parseFloat(data.totalCost.toString()),
     };
-    console.log(bookingData);
+
     try {
       await createBooking(bookingData).unwrap();
       reset();
@@ -93,12 +103,15 @@ const CarBooking = () => {
             </h1>
             <div className="my-20">
               <div className="w-full mb-4">
-                <label htmlFor="startTime">Select your car: </label>
+                <label className="mr-5 font-semibold" htmlFor="startTime">
+                  Select your car:{" "}
+                </label>
                 <select
                   id="car"
                   {...register("car", { required: true })}
                   className="px-20 py-2 border rounded-md shadow-md"
                 >
+                  <option value="">select car</option>
                   {data?.data.map((car: TCarData) => (
                     <option key={car?._id} value={car?._id}>
                       {car?.name}
