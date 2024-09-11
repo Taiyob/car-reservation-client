@@ -6,7 +6,7 @@ import { TBookingInfoDetails } from "../../types/bookingType";
 const AllBookings = () => {
   const [page, setPage] = useState(1);
   const [sortField, setSortField] = useState("name");
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   const { data, isLoading } = useGetAllBookingsQuery([
     { name: "limit", value: 5 },
@@ -54,7 +54,11 @@ const AllBookings = () => {
               <tr>
                 <th>
                   <label>
-                    <input name='check-all-booking' type="checkbox" className="checkbox" />
+                    <input
+                      name="check-all-booking"
+                      type="checkbox"
+                      className="checkbox"
+                    />
                   </label>
                 </th>
                 <th onClick={() => handleSort("name")}>Name</th>
@@ -75,6 +79,7 @@ const AllBookings = () => {
                     endTime={booking?.endTime}
                     totalCost={booking?.totalCost}
                     image={images}
+                    date={booking?.date}
                   />
                 );
               })}

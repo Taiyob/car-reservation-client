@@ -4,6 +4,7 @@ export type TBookingTableProps = {
   endTime: string;
   totalCost: number;
   image: string[];
+  date?: Date | undefined;
 };
 
 const BookingTable = ({
@@ -12,7 +13,17 @@ const BookingTable = ({
   endTime,
   totalCost,
   image,
+  date,
 }: TBookingTableProps) => {
+  const formatDate = (date: string | Date | undefined) => {
+    if (!date) return "No Date Provided";
+
+    const parsedDate = typeof date === "string" ? new Date(date) : date;
+    return parsedDate instanceof Date && !isNaN(parsedDate.getTime())
+      ? parsedDate.toLocaleDateString()
+      : "Invalid Date";
+  };
+
   return (
     <tr>
       <th>
@@ -51,16 +62,14 @@ const BookingTable = ({
           </div>
           <div>
             <div className="font-bold">{name}</div>
-            <div className="text-sm opacity-50">United States</div>
+            {/* <div className="text-sm opacity-50">{formatDate(date)}</div> */}
           </div>
         </div>
       </td>
       <td>
         {startTime}
         <br />
-        {/* <span className="badge badge-ghost badge-sm">
-          Desktop Support Technician
-        </span> */}
+        <span className="badge badge-ghost badge-sm">{formatDate(date)}</span>
       </td>
       <td>{endTime}</td>
       <td>{totalCost}</td>
