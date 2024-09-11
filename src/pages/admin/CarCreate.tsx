@@ -15,7 +15,7 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 //import { RxCrossCircled } from "react-icons/rx";
 
-const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY; // VITE_IMAGE_HOSTING_KEY
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const CarCreate = () => {

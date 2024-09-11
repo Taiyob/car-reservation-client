@@ -24,6 +24,8 @@ const BookingTable = ({
       : "Invalid Date";
   };
 
+  const handleApproved = async () => {};
+
   return (
     <tr>
       <th>
@@ -73,8 +75,15 @@ const BookingTable = ({
       </td>
       <td>{endTime}</td>
       <td>{totalCost}</td>
-      <th>
+      <th className="flex justify-between items-center space-x-2">
         <button className="btn btn-ghost btn-xs">details</button>
+        <button
+          onClick={handleApproved}
+          className="badge badge-secondary badge-outline"
+        >
+          approved
+        </button>
+        <button className="badge badge-error gap-2 text-white">cancel</button>
       </th>
     </tr>
   );
