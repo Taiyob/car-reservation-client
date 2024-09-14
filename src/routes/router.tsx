@@ -18,6 +18,7 @@ import AllBookings from "../pages/admin/AllBookings";
 import MyBookings from "../pages/admin/MyBookings";
 import AdminRoute from "../components/shared/AdminRoute";
 import UserLayout from "../pages/user/UserLayout";
+import UpdateBooking from "../pages/admin/UpdateBooking";
 
 const router = createBrowserRouter([
   {
@@ -123,6 +124,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AllBookings />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "update-bookings/:id",
+        element: (
+          <AdminRoute>
+            <UpdateBooking />
           </AdminRoute>
         ),
       },

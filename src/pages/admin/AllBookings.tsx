@@ -82,7 +82,6 @@ const AllBookings = () => {
                     date={booking?.date}
                     _id={booking?._id}
                     status={booking?.status}
-                    //carName={booking?.car?.name}
                   />
                 );
               })}

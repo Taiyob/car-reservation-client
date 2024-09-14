@@ -47,18 +47,17 @@ const MyBookings = () => {
               </thead>
               <tbody>
                 {allBookings.map((booking: TBookingInfoDetails) => {
-                  //const images = booking?.car?.image || ["No Image"];
+                  const images = booking?.car?.image || ["No Image"];
                   return (
-                    <h1>testing</h1>
-                    // <BookingTable
-                    //   key={booking._id}
-                    //   name={booking?.user?.name}
-                    //   startTime={booking?.startTime}
-                    //   endTime={booking?.endTime}
-                    //   totalCost={booking?.totalCost}
-                    //   image={images}
-                    //   status={booking?.status}
-                    // />
+                    <BookingTable
+                      key={booking._id}
+                      name={booking?.user?.name}
+                      startTime={booking?.startTime}
+                      endTime={booking?.endTime}
+                      totalCost={booking?.totalCost}
+                      image={images}
+                      status={booking?.status}
+                    />
                   );
                 })}
               </tbody>

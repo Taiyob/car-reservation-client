@@ -42,6 +42,13 @@ const bookingApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    getSingleBooking: builder.query({
+      providesTags: ["booking", "user"],
+      query: (id) => ({
+        url: `/bookings/single-booking/${id}`,
+        method: "GET",
+      }),
+    }),
     updateStatusInApproved: builder.mutation({
       query: (id) => ({
         url: `/bookings/change-booking-status/${id}`,
@@ -56,5 +63,6 @@ export const {
   useCreateBookingMutation,
   useGetAllBookingsQuery,
   useGetMyBookingsQuery,
+  useGetSingleBookingQuery,
   useUpdateStatusInApprovedMutation,
 } = bookingApi;
