@@ -80,6 +80,9 @@ const AllBookings = () => {
                     totalCost={booking?.totalCost}
                     image={images}
                     date={booking?.date}
+                    _id={booking?._id}
+                    status={booking?.status}
+                    //carName={booking?.car?.name}
                   />
                 );
               })}

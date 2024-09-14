@@ -107,7 +107,7 @@ const Navbar = () => {
                   <Link to="/change-password">Change Password</Link>
                 </li>
                 <li>
-                  <Link to="/admin-dashboard">Dashboard</Link>
+                  <Link to={`/${user?.userRole}-dashboard`}>Dashboard</Link>
                 </li>
                 <li>
                   <button type="button" onClick={handleLogout}>

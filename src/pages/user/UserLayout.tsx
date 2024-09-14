@@ -1,41 +1,34 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { toast } from "sonner";
 import {
   logOut,
   selectCurrentUser,
 } from "../../redux/features/auth/userCredentialSlice";
-import { toast } from "sonner";
-import { useState } from "react";
-import "../../styles/dropdown.css";
 
-const AdminLayout = () => {
+const UserLayout = () => {
   const user = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
 
   const handleLogout = () => {
     console.log("Logging out...");
     dispatch(logOut());
-    toast.success("You are log out successfully");
+    toast.success("You have logged out successfully");
     navigate("/");
   };
 
   return (
     <div className="flex justify-start">
-      <div className="flex flex-col h-screen p-3 text-gray-100 bg-purple-500 w-60 dark:bg-gray-50 dark:text-gray-800">
+      <div className="flex flex-col h-screen p-3 text-gray-100 bg-purple-500 dark:bg-gray-50 dark:text-gray-800 w-60">
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <h2>ADMIN Dashboard</h2>
+            <h2>USER Dashboard</h2>
           </div>
           <div className="relative">
             <span className="absolute inset-y-0 left-0 flex items-center py-4">
               <button
-                type="submit"
+                type="button"
                 className="p-2 focus:outline-none focus:ring"
               >
                 <svg
@@ -58,7 +51,6 @@ const AdminLayout = () => {
             <ul className="pt-2 pb-4 space-y-1 text-sm">
               <li className="rounded-sm">
                 <NavLink
-                  rel="noopener noreferrer"
                   to="/"
                   className={({ isActive }) =>
                     `flex items-center p-2 space-x-3 rounded-md ${
@@ -78,8 +70,6 @@ const AdminLayout = () => {
               </li>
               <li className="rounded-sm">
                 <NavLink
-                  rel="noopener noreferrer"
-                  //to="/admin-dashboard/my-bookings"
                   to={`/${user?.userRole}-dashboard/my-bookings`}
                   className={({ isActive }) =>
                     `flex items-center p-2 space-x-3 rounded-md ${
@@ -97,76 +87,11 @@ const AdminLayout = () => {
                   <span>My Bookings</span>
                 </NavLink>
               </li>
-              <li className="relative rounded-sm">
-                <button
-                  onClick={toggleDropdown}
-                  className="flex items-center p-2 space-x-3 rounded-md"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    className="w-5 h-5 text-gray-400 fill-current dark:text-gray-600"
-                  >
-                    <path d="M19 13H13V19C13 19.5523 12.5523 20 12 20C11.4477 20 11 19.5523 11 19V13H5C4.44772 13 4 12.5523 4 12C4 11.4477 4.44772 11 5 11H11V5C11 4.44772 11.4477 4 12 4C12.5523 4 13 4.44772 13 5V11H19C19.5523 11 20 11.4477 20 12C20 12.5523 19.5523 13 19 13Z" />
-                  </svg>
-                  <span>Manage Car</span>
-                </button>
-                {isOpen && (
-                  <div className="absolute mt-0 bg-black border border-black rounded-md shadow-lg left-4 dark:bg-gray-800 dark:border-gray-700">
-                    <NavLink
-                      to="/admin-dashboard/create-car"
-                      // className="block px-4 py-2 text-purple-500 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-700"
-                      className={({ isActive }) =>
-                        `block px-4 py-2 text-purple-500 hover:bg-purple-500 ${
-                          isActive ? "bg-black text-white" : "text-white"
-                        }`
-                      }
-                    >
-                      Create
-                    </NavLink>
-                    <NavLink
-                      to="/admin-dashboard/all-car-list"
-                      // className="block px-4 py-2 text-purple-500 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-700"
-                      className={({ isActive }) =>
-                        `block px-4 py-2 text-purple-500 hover:bg-purple-500 ${
-                          isActive ? "bg-black text-white" : "text-white"
-                        }`
-                      }
-                    >
-                      All Cars
-                    </NavLink>
-                  </div>
-                )}
-              </li>
-
               <li className="rounded-sm">
                 <NavLink
-                  rel="noopener noreferrer"
-                  to="/admin-dashboard/all-bookings"
+                  to="/wishlist"
                   className={({ isActive }) =>
                     `flex items-center p-2 space-x-3 rounded-md ${
-                      isActive ? "bg-black text-white" : "text-white"
-                    }`
-                  }
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 512 512"
-                    className="w-5 h-5 text-gray-400 fill-current dark:text-gray-600"
-                  >
-                    <path d="M203.247,386.414,208,381.185V355.4L130.125,191H93.875L16,355.4v27.042l4.234,4.595a124.347,124.347,0,0,0,91.224,39.982h.42A124.343,124.343,0,0,0,203.247,386.414ZM176,368.608a90.924,90.924,0,0,1-64.231,26.413h-.33A90.907,90.907,0,0,1,48,369.667V362.6l64-135.112L176,362.6Z"></path>
-                    <path d="M418.125,191h-36.25L304,355.4v27.042l4.234,4.595a124.347,124.347,0,0,0,91.224,39.982h.42a124.343,124.343,0,0,0,91.369-40.607L496,381.185V355.4ZM464,368.608a90.924,90.924,0,0,1-64.231,26.413h-.33A90.907,90.907,0,0,1,336,369.667V362.6l64-135.112L464,362.6Z"></path>
-                    <path d="M272,196.659A56.223,56.223,0,0,0,309.659,159H416V127H309.659a55.991,55.991,0,0,0-107.318,0H96v32H202.341A56.223,56.223,0,0,0,240,196.659V463H136v32H376V463H272ZM232,143a24,24,0,1,1,24,24A24,24,0,0,1,232,143Z"></path>
-                  </svg>
-                  <span>Orders</span>
-                </NavLink>
-              </li>
-              <li className="rounded-sm">
-                <NavLink
-                  rel="noopener noreferrer"
-                  to=""
-                  className={({ isActive }) =>
-                    `flex items-center p-2 space-x-3 rounded-md bg-purple-500 ${
                       isActive ? "bg-black text-white" : "text-white"
                     }`
                   }
@@ -183,10 +108,9 @@ const AdminLayout = () => {
               </li>
               <li className="rounded-sm">
                 <NavLink
-                  rel="noopener noreferrer"
-                  to=""
+                  to="/settings"
                   className={({ isActive }) =>
-                    `flex items-center p-2 space-x-3 rounded-md bg-purple-500${
+                    `flex items-center p-2 space-x-3 rounded-md ${
                       isActive ? "bg-black text-white" : "text-white"
                     }`
                   }
@@ -205,7 +129,7 @@ const AdminLayout = () => {
               <li className="rounded-sm">
                 <button
                   onClick={handleLogout}
-                  rel="noopener noreferrer"
+                  type="button"
                   className="flex items-center p-2 space-x-3 rounded-md"
                 >
                   <svg
@@ -222,17 +146,18 @@ const AdminLayout = () => {
             </ul>
           </div>
         </div>
-        <div className="flex items-center p-2 mt-12 space-x-4 justify-self-end">
+        <div className="flex items-center p-2 mt-12 space-x-4">
           <img
             src="https://source.unsplash.com/100x100/?portrait"
-            alt=""
+            alt="User profile"
             className="w-12 h-12 bg-gray-500 rounded-lg dark:bg-gray-500"
           />
           <div>
-            <h2 className="text-lg font-semibold">Leroy Jenkins</h2>
+            <h2 className="text-lg font-semibold">
+              {user?.name || "Leroy Jenkins"}
+            </h2>
             <span className="flex items-center space-x-1">
               <a
-                rel="noopener noreferrer"
                 href="#"
                 className="text-xs text-gray-400 hover:underline dark:text-gray-600"
               >
@@ -249,4 +174,4 @@ const AdminLayout = () => {
   );
 };
 
-export default AdminLayout;
+export default UserLayout;

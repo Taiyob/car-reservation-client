@@ -10,6 +10,7 @@ const carApi = baseApi.injectEndpoints({
         method: "POST",
         body: carInfo,
       }),
+      invalidatesTags: ["car"],
     }),
     getAllCars: builder.query({
       query: (args) => {
@@ -25,6 +26,7 @@ const carApi = baseApi.injectEndpoints({
           params: params,
         };
       },
+      providesTags: ["car"],
       transformResponse: (response: TResponseRedux<TCarData[]>) => {
         return {
           data: response.data,
@@ -56,12 +58,22 @@ const carApi = baseApi.injectEndpoints({
         method: `PATCH`,
         body: args.data,
       }),
+      invalidatesTags: ["car"],
     }),
     deleteCar: builder.mutation({
       query: (id) => ({
         url: `/cars/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["car"],
+    }),
+    returnCar: builder.mutation({
+      query: ({ bookingId, endTime }) => ({
+        url: `/cars/return`,
+        method: "PUT",
+        body: { bookingId, endTime },
+      }),
+      invalidatesTags: ["car"],
     }),
   }),
 });
@@ -74,4 +86,5 @@ export const {
   useGetSingleCarQuery,
   useUpdateCarMutation,
   useDeleteCarMutation,
+  useReturnCarMutation,
 } = carApi;

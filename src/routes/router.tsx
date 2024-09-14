@@ -16,6 +16,8 @@ import CarUpdate from "../pages/admin/CarUpdate";
 import CarBooking from "../pages/public/CarBooking";
 import AllBookings from "../pages/admin/AllBookings";
 import MyBookings from "../pages/admin/MyBookings";
+import AdminRoute from "../components/shared/AdminRoute";
+import UserLayout from "../pages/user/UserLayout";
 
 const router = createBrowserRouter([
   {
@@ -60,33 +62,69 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/user-dashboard",
+    element: (
+      <ProtectedRoute>
+        <UserLayout />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        path: "my-bookings",
+        element: <MyBookings />,
+      },
+    ],
+  },
+  {
     path: "/admin-dashboard",
     element: (
       <ProtectedRoute>
-        <AdminLayout />
+        <AdminRoute>
+          <AdminLayout />
+        </AdminRoute>
       </ProtectedRoute>
     ),
     children: [
       {
         index: true,
         //path: "/admin-dashboard",
-        element: <AdminHome />,
+        element: (
+          <AdminRoute>
+            <AdminHome />
+          </AdminRoute>
+        ),
       },
       {
         path: "create-car",
-        element: <CarCreate />,
+        element: (
+          <AdminRoute>
+            <CarCreate />
+          </AdminRoute>
+        ),
       },
       {
         path: "all-car-list",
-        element: <AllCarsTable />,
+        element: (
+          <AdminRoute>
+            <AllCarsTable />
+          </AdminRoute>
+        ),
       },
       {
         path: "update-car/:id",
-        element: <CarUpdate />,
+        element: (
+          <AdminRoute>
+            <CarUpdate />
+          </AdminRoute>
+        ),
       },
       {
         path: "all-bookings",
-        element: <AllBookings />,
+        element: (
+          <AdminRoute>
+            <AllBookings />
+          </AdminRoute>
+        ),
       },
       {
         path: "my-bookings",

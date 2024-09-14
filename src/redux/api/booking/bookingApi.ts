@@ -10,8 +10,10 @@ const bookingApi = baseApi.injectEndpoints({
         method: `POST`,
         body: bookingInfo,
       }),
+      invalidatesTags: ["booking"],
     }),
     getAllBookings: builder.query({
+      providesTags: ["booking"],
       query: (args) => {
         const params = new URLSearchParams();
         if (args) {
@@ -25,6 +27,7 @@ const bookingApi = baseApi.injectEndpoints({
           params: params,
         };
       },
+
       transformResponse: (response: TResponseRedux<TBookingInfoDetails[]>) => {
         return {
           data: response.data,
@@ -33,12 +36,25 @@ const bookingApi = baseApi.injectEndpoints({
       },
     }),
     getMyBookings: builder.query({
+      providesTags: ["booking", "user"],
       query: () => ({
         url: `/bookings/my-bookings`,
-        method: 'GET'
-      })
+        method: "GET",
+      }),
+    }),
+    updateStatusInApproved: builder.mutation({
+      query: (id) => ({
+        url: `/bookings/change-booking-status/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["booking"],
     }),
   }),
 });
 
-export const { useCreateBookingMutation, useGetAllBookingsQuery, useGetMyBookingsQuery } = bookingApi;
+export const {
+  useCreateBookingMutation,
+  useGetAllBookingsQuery,
+  useGetMyBookingsQuery,
+  useUpdateStatusInApprovedMutation,
+} = bookingApi;

@@ -1,20 +1,52 @@
+import { useEffect, useState } from "react";
+import { useUpdateStatusInApprovedMutation } from "../../../redux/api/booking/bookingApi";
+import { toast } from "sonner";
+import Swal from "sweetalert2";
+import { useAppSelector } from "../../../redux/hooks";
+import { selectCurrentUser } from "../../../redux/features/auth/userCredentialSlice";
+import { useReturnCarMutation } from "../../../redux/api/car/carApi";
+
 export type TBookingTableProps = {
+  _id?: string;
   name?: string;
   startTime: string;
   endTime: string;
   totalCost: number;
   image: string[];
   date?: Date | undefined;
+  status?: string;
 };
 
 const BookingTable = ({
+  _id,
   name,
   startTime,
   endTime,
   totalCost,
   image,
   date,
+  status,
 }: TBookingTableProps) => {
+  const user = useAppSelector(selectCurrentUser);
+  const [updateStatusInApproved] = useUpdateStatusInApprovedMutation();
+  const [returnCar] = useReturnCarMutation();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let timer: number | null = null;
+
+    if (error) {
+      timer = window.setTimeout(() => setError(null), 3000);
+    }
+
+    return () => {
+      if (timer) {
+        window.clearTimeout(timer);
+      }
+    };
+  }, [error]);
+
   const formatDate = (date: string | Date | undefined) => {
     if (!date) return "No Date Provided";
 
@@ -24,7 +56,17 @@ const BookingTable = ({
       : "Invalid Date";
   };
 
-  const handleApproved = async () => {};
+  const generateTimes = () => {
+    const times = [];
+    for (let hour = 0; hour < 24; hour++) {
+      for (let minute = 0; minute < 60; minute += 30) {
+        const formattedHour = hour.toString().padStart(2, "0");
+        const formattedMinute = minute.toString().padStart(2, "0");
+        times.push(`${formattedHour}:${formattedMinute}`);
+      }
+    }
+    return times;
+  };
 
   return (
     <tr>
@@ -64,7 +106,6 @@ const BookingTable = ({
           </div>
           <div>
             <div className="font-bold">{name}</div>
-            {/* <div className="text-sm opacity-50">{formatDate(date)}</div> */}
           </div>
         </div>
       </td>
@@ -76,15 +117,43 @@ const BookingTable = ({
       <td>{endTime}</td>
       <td>{totalCost}</td>
       <th className="flex justify-between items-center space-x-2">
-        <button className="btn btn-ghost btn-xs">details</button>
-        <button
-          onClick={handleApproved}
-          className="badge badge-secondary badge-outline"
-        >
-          approved
-        </button>
-        <button className="badge badge-error gap-2 text-white">cancel</button>
+        {status === "approved" ? (
+          user?.userRole === "admin" ? (
+            <button
+              disabled
+              className="badge badge-neutral badge-outline text-white"
+            >
+              processing
+            </button>
+          ) : (
+            <button
+              disabled
+              className="badge badge-neutral badge-outline text-white"
+            >
+              pending
+            </button>
+          )
+        ) : (
+          <>
+            <button
+              className="badge badge-secondary badge-outline"
+              disabled={isLoading}
+            >
+              {status || "approved"}
+            </button>
+            <button className="badge badge-error gap-2 text-white">
+              cancel
+            </button>
+          </>
+        )}
       </th>
+      {/* {error && (
+          <tr>
+            <td className="text-red-500">
+              <p className="text-xs text-red-600 font-semibold">{error}</p>
+            </td>
+          </tr>
+        )} */}
     </tr>
   );
 };

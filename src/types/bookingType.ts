@@ -29,4 +29,5 @@ export type TBookingInfoDetails = {
   startTime: string;
   endTime: string;
   totalCost: number;
+  status?: string;
 };
