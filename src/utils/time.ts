@@ -18,7 +18,7 @@ export const generateTimes = () => {
 };
 
 export const filterTimes = ({ watch }: FilterTimesParams) => {
-  const startTime = watch("endTime"); // Get current value of endTime from form
+  const startTime = watch("endTime");
 
   if (!startTime) return generateTimes();
 
@@ -30,4 +30,25 @@ export const filterTimes = ({ watch }: FilterTimesParams) => {
     const endTimeInMinutes = endHour * 60 + endMinute;
     return endTimeInMinutes > startTimeInMinutes;
   });
+};
+
+export const calculateDuration = (
+  startTime: string,
+  endTime: string
+): string => {
+  if (!startTime || !endTime) return "0.00";
+
+  const [startHour, startMinute] = startTime.split(":").map(Number);
+  const [endHour, endMinute] = endTime.split(":").map(Number);
+
+  const startDate = new Date();
+  startDate.setHours(startHour, startMinute, 0, 0);
+
+  const endDate = new Date();
+  endDate.setHours(endHour, endMinute, 0, 0);
+
+  const diffInMs = endDate.getTime() - startDate.getTime();
+  const diffInHours = diffInMs / (1000 * 60 * 60);
+
+  return diffInHours.toFixed(2);
 };

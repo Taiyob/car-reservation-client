@@ -51,12 +51,14 @@ const MyBookings = () => {
                   return (
                     <BookingTable
                       key={booking._id}
+                      _id={booking._id}
                       name={booking?.user?.name}
                       startTime={booking?.startTime}
                       endTime={booking?.endTime}
                       totalCost={booking?.totalCost}
                       image={images}
                       status={booking?.status}
+                      date={booking?.date}
                     />
                   );
                 })}

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAppSelector } from "../../../redux/hooks";
 import { selectCurrentUser } from "../../../redux/features/auth/userCredentialSlice";
 import UpdateBookingModal from "./UpdateBookingModal";
+import { Link } from "react-router-dom";
 
 export type TBookingTableProps = {
   _id?: string;
@@ -105,12 +106,12 @@ const BookingTable = ({
                 processing
               </button>
             ) : (
-              <button
-                disabled
-                className="badge badge-neutral badge-outline text-white"
+              <Link
+                to={`/user-dashboard/checkout/${_id}`}
+                className="btn btn-sm text-white bg-purple-500 hover:bg-purple-800"
               >
-                pending
-              </button>
+                Checkout
+              </Link>
             )
           ) : (
             <>
