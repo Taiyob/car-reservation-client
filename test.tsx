@@ -278,3 +278,10 @@ const BookingTable = ({
     
 
 */
+{
+  /* <img
+            src="https://sb.kaleidousercontent.com/67418/960x550/d2745edc21/cars-no-bg-1.png"
+            alt=""
+            className="w-full h-60 sm:h-96 bg-gray-500"
+          /> */
+}

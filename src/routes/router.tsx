@@ -20,6 +20,7 @@ import AdminRoute from "../components/shared/AdminRoute";
 import UserLayout from "../pages/user/UserLayout";
 import UpdateBooking from "../pages/admin/UpdateBooking";
 import Checkout from "../pages/user/Checkout";
+import AllCars from "../pages/public/AllCars";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+      },
+      {
+        path: "/all-cars",
+        element: <AllCars />,
       },
     ],
   },

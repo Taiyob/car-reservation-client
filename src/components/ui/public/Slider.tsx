@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useGetCarsImageQuery } from "../../../redux/api/car/carApi";
 import SliderBox from "./SliderBox";
+import { Link } from "react-router-dom";
 
 const Slider = () => {
   const [images, setImages] = useState<string[]>([]);
@@ -57,9 +58,12 @@ const Slider = () => {
             </span>
           </li>
         </ul>
-        <button className="px-6 py-3 mt-6 font-semibold text-white bg-purple-600 rounded-full hover:bg-purple-700">
-          See how it works →
-        </button>
+        <Link
+          to="/all-cars"
+          className="px-6 py-3 mt-6 font-semibold text-white bg-purple-600 rounded-full hover:bg-purple-700 text-center"
+        >
+          Explore Our Car Collection →
+        </Link>
       </div>
     </div>
   );

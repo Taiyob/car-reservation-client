@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useGetSingleBookingQuery } from "../../redux/api/booking/bookingApi";
 import { extractInitialWords } from "../../utils/requiredWords";
 import formatDate from "../../utils/date";
@@ -10,6 +11,13 @@ const Checkout = () => {
   const { id } = useParams();
   const { data: bookingInfo, isLoading } = useGetSingleBookingQuery(id);
   const navigate = useNavigate();
+  const [images, setImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (bookingInfo?.data?.car?.image) {
+      setImages(bookingInfo.data.car.image);
+    }
+  }, [bookingInfo]);
 
   if (isLoading) {
     return (
@@ -30,11 +38,14 @@ const Checkout = () => {
       />
       <div className="p-5 mx-auto sm:p-10 md:p-16 bg-gray-100 text-gray-800">
         <div className="flex flex-col max-w-3xl mx-auto overflow-hidden rounded">
-          <img
-            src="https://sb.kaleidousercontent.com/67418/960x550/d2745edc21/cars-no-bg-1.png"
-            alt=""
-            className="w-full h-60 sm:h-96 bg-gray-500"
-          />
+          {images.map((imgUrl, index) => (
+            <img
+              key={index}
+              src={imgUrl}
+              alt="car-image"
+              className="w-full h-60 sm:h-96 bg-gray-500"
+            />
+          ))}
           <div className="p-6 pb-12 m-4 mx-auto -mt-16 space-y-6 lg:max-w-2xl sm:px-10 sm:mx-12 lg:rounded-md bg-gray-50">
             <div className="space-y-2">
               <a
