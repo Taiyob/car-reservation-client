@@ -6,9 +6,12 @@ import SearchInputField from "../../components/shared/SearchInputField";
 
 const AllCars = () => {
   const [page, setPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const { data, isLoading } = useGetAllCarsQuery([
     { name: "limit", value: 9 },
     { name: "page", value: page },
+    { name: "searchTerm", value: searchTerm || "" },
     // { name: "sort", value: `${sortField},${sortOrder}` },
   ]);
 
@@ -30,6 +33,11 @@ const AllCars = () => {
     if (page < totalPage) {
       setPage(page + 1);
     }
+  };
+
+  const handleSearch = (searchTerm: string) => {
+    setSearchTerm(searchTerm);
+    setPage(1); // Reset to the first page on a new search
   };
 
   return (
@@ -58,9 +66,12 @@ const AllCars = () => {
         <div className="w-full bg-[#f5f5f5]">
           <h1 className="p-3 text-2xl font-bold">Products</h1>
           <div className="flex items-center justify-between px-3">
-            <h5>Showing 1-24 of {allCars.length} products</h5>
+            {/* <h5>Showing 1-24 of {allCars.length} products</h5> */}
+            <h5>
+              Showing {allCars.length} of {data?.meta?.total || 0} products
+            </h5>
             {/* Sorting select boxes go here... */}
-            <SearchInputField />
+            <SearchInputField onSearch={handleSearch} />
             <div className="items-center space-y-2 text-xs sm:space-y-0 sm:space-x-3 sm:flex">
               <span className="block">
                 Page {page} of {totalPage}

@@ -1,7 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 
-const SearchInputField = () => {
+interface SearchInputFieldProps {
+  onSearch: (searchTerm: string) => void;
+}
+
+const SearchInputField = ({ onSearch }: SearchInputFieldProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -26,8 +31,17 @@ const SearchInputField = () => {
     setIsDropdownOpen((prev) => !prev);
   };
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSearch(searchTerm); // Pass the search term to the parent component
+  };
+
   return (
-    <form className="max-w-lg mx-auto relative">
+    <form onSubmit={handleSubmit} className="max-w-lg mx-auto relative">
       <div className="flex">
         <button
           ref={buttonRef}
@@ -83,6 +97,8 @@ const SearchInputField = () => {
           <input
             type="search"
             id="search-dropdown"
+            value={searchTerm}
+            onChange={handleSearchChange}
             className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
             placeholder="Search cars ..."
             required

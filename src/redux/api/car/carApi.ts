@@ -20,6 +20,9 @@ const carApi = baseApi.injectEndpoints({
             params.append(item.name, item.value as string);
           });
         }
+        if (args.searchTerm && args.searchTerm.trim() !== "") {
+          params.append("searchTerm", args.searchTerm);
+        }
         return {
           url: "/cars",
           method: "GET",
