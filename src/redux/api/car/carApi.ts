@@ -21,7 +21,7 @@ const carApi = baseApi.injectEndpoints({
           });
         }
         if (args.searchTerm && args.searchTerm.trim() !== "") {
-          params.append("searchTerm", args.searchTerm);
+          params.append("name", args.searchTerm);
         }
         return {
           url: "/cars",

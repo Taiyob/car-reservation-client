@@ -285,3 +285,58 @@ const BookingTable = ({
             className="w-full h-60 sm:h-96 bg-gray-500"
           /> */
 }
+
+/*
+
+{status === "approved" ? (
+            user?.userRole === "admin" ? (
+              <button
+                disabled
+                className="badge badge-neutral badge-outline text-white"
+              >
+                processing
+              </button>
+            ) : (
+              <Link
+                to={`/user-dashboard/checkout/${_id}`}
+                className="btn btn-sm text-white bg-purple-500 hover:bg-purple-800"
+              >
+                Checkout
+              </Link>
+            )
+          ) : (
+            <>
+               {status === "pending" ? (
+                user?.userRole === "user" ? (
+                  <>
+                    <button className="badge badge-secondary badge-outline">
+                      {status || "approved"}
+                    </button>
+                    <button className="badge badge-error gap-2 text-white">
+                      cancel
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    className="badge badge-secondary badge-outline"
+                    onClick={() => openModal(_id || "")}
+                  >
+                    {status || "approved"}
+                  </button>
+                )
+              ) : (
+                <p>Please booked your car</p>
+              )} 
+              <button
+                className="badge badge-secondary badge-outline"
+                onClick={() => openModal(_id || "")}
+              >
+                {status || "approved"}
+              </button>
+              <button className="badge badge-error gap-2 text-white">
+                cancel
+              </button>
+            </>
+          )}
+
+*/

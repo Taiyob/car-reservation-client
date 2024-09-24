@@ -17,6 +17,7 @@ import {
 } from "../../redux/features/auth/userCredentialSlice";
 import { useGetAvailableCarsQuery } from "../../redux/api/car/carApi";
 import { TCarData } from "../admin/AllCarsTable";
+import { useNavigate } from "react-router-dom";
 //import bg from "../../assets/images/bg_booking.avif";
 
 type TBookingInfo = {
@@ -32,6 +33,9 @@ const CarBooking = () => {
   const user = useAppSelector(selectCurrentUser) as TUser;
   const userInfo = user?.user;
   const _id = userInfo?._id;
+  console.log(userInfo);
+  console.log(user);
+  const navigate = useNavigate();
 
   const { handleSubmit, reset, register, watch } = useForm<TBookingInfo>();
 
@@ -81,12 +85,13 @@ const CarBooking = () => {
       endDate: range[0].endDate.toISOString(),
       user: _id,
       car: carId,
-      totalCost: parseFloat(data.totalCost.toString()),
+      //totalCost: parseFloat(data.totalCost.toString()),
     };
 
     try {
       await createBooking(bookingData).unwrap();
       reset();
+      navigate(`/${userInfo?.role}-dashboard/my-bookings`);
       toast.success("your booked a car, wait for response...");
     } catch (error) {
       toast.error("Booking failed. Please try again.");
@@ -143,29 +148,6 @@ const CarBooking = () => {
                     ))}
                   </select>
                 </div>
-                <div className="w-1/2 mb-4">
-                  <label htmlFor="endTime">Pick end time: </label>
-                  <select
-                    id="endTime"
-                    {...register("endTime", { required: true })}
-                    className="p-2 border rounded-md shadow-md"
-                  >
-                    {generateTimes().map((time) => (
-                      <option key={time} value={time}>
-                        {time}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              <div className="w-1/2 mb-4">
-                <input
-                  type="number"
-                  id="totalCost"
-                  placeholder="Enter total cost"
-                  className="w-full p-2 mb-2 border rounded"
-                  {...register("totalCost", { required: true })}
-                />
               </div>
               <div className="w-full mb-4">
                 <button

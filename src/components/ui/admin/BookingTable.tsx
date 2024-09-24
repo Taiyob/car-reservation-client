@@ -97,7 +97,20 @@ const BookingTable = ({
         <td>{endTime}</td>
         <td>{totalCost}</td>
         <th className="flex justify-between items-center space-x-2">
-          {status === "approved" ? (
+          {user?.userRole === "admin" ? (
+            <button
+              className="badge badge-secondary badge-outline"
+              onClick={() => openModal(_id || "")}
+            >
+              {status}
+            </button>
+          ) : (
+            <button className="badge badge-secondary badge-outline">
+              {status}
+            </button>
+          )}
+
+          {/* {status === "approved" ? (
             user?.userRole === "admin" ? (
               <button
                 disabled
@@ -115,6 +128,27 @@ const BookingTable = ({
             )
           ) : (
             <>
+               {status === "pending" ? (
+                user?.userRole === "user" ? (
+                  <>
+                    <button className="badge badge-secondary badge-outline">
+                      {status || "approved"}
+                    </button>
+                    <button className="badge badge-error gap-2 text-white">
+                      cancel
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    className="badge badge-secondary badge-outline"
+                    onClick={() => openModal(_id || "")}
+                  >
+                    {status || "approved"}
+                  </button>
+                )
+              ) : (
+                <p>Please booked your car</p>
+              )} 
               <button
                 className="badge badge-secondary badge-outline"
                 onClick={() => openModal(_id || "")}
@@ -125,7 +159,7 @@ const BookingTable = ({
                 cancel
               </button>
             </>
-          )}
+          )} */}
         </th>
       </tr>
 

@@ -11,7 +11,8 @@ const AllCars = () => {
   const { data, isLoading } = useGetAllCarsQuery([
     { name: "limit", value: 9 },
     { name: "page", value: page },
-    { name: "searchTerm", value: searchTerm || "" },
+    { name: "searchTerm", value: searchTerm },
+    // { name: "name", value: searchTerm || "" },
     // { name: "sort", value: `${sortField},${sortOrder}` },
   ]);
 
@@ -35,9 +36,9 @@ const AllCars = () => {
     }
   };
 
-  const handleSearch = (searchTerm: string) => {
-    setSearchTerm(searchTerm);
-    setPage(1); // Reset to the first page on a new search
+  const handleSearch = (newSearchTerm: string) => {
+    setSearchTerm(newSearchTerm);
+    setPage(1);
   };
 
   return (

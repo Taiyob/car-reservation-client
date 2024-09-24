@@ -32,7 +32,9 @@ const SearchInputField = ({ onSearch }: SearchInputFieldProps) => {
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
+    const newTerm = e.target.value;
+    setSearchTerm(newTerm);
+    onSearch(newTerm); // Call onSearch with the updated term
   };
 
   const handleSubmit = (e: React.FormEvent) => {
