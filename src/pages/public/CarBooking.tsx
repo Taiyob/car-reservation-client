@@ -85,6 +85,7 @@ const CarBooking = () => {
       endDate: range[0].endDate.toISOString(),
       user: _id,
       car: carId,
+      status: "pending",
       //totalCost: parseFloat(data.totalCost.toString()),
     };
 

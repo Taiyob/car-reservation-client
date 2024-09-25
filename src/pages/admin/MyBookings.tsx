@@ -61,7 +61,9 @@ const MyBookings = () => {
                       date={booking?.date}
                     />
                   ) : (
-                    <p key={booking._id}>No data available</p>
+                    <p className="col-span-4" key={booking._id}>
+                      Wait for Admin acceptation...
+                    </p>
                   );
                 })}
               </tbody>
