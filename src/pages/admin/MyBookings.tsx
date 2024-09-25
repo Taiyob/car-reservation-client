@@ -48,7 +48,7 @@ const MyBookings = () => {
               <tbody>
                 {allBookings.map((booking: TBookingInfoDetails) => {
                   const images = booking?.car?.image || ["No Image"];
-                  return (
+                  return booking?.status === "approved" ? (
                     <BookingTable
                       key={booking._id}
                       _id={booking._id}
@@ -60,6 +60,8 @@ const MyBookings = () => {
                       status={booking?.status}
                       date={booking?.date}
                     />
+                  ) : (
+                    <p key={booking._id}>No data available</p>
                   );
                 })}
               </tbody>

@@ -71,7 +71,7 @@ const AllBookings = () => {
             <tbody>
               {allBookings.map((booking: TBookingInfoDetails) => {
                 const images = booking?.car?.image || ["No Image"];
-                return (
+                return booking?.status === "pending" ? (
                   <BookingTable
                     key={booking._id}
                     name={booking?.user?.name}
@@ -83,6 +83,8 @@ const AllBookings = () => {
                     _id={booking?._id}
                     status={booking?.status}
                   />
+                ) : (
+                  <p key={booking._id}>No data available</p>
                 );
               })}
             </tbody>
