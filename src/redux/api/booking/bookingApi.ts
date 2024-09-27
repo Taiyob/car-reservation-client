@@ -56,6 +56,14 @@ const bookingApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["booking"],
     }),
+    bookingCompletion: builder.mutation({
+      query: (args) => ({
+        url: `/bookings/complete-booking/${args.id}`,
+        method: "PATCH",
+        body: args.data,
+      }),
+      invalidatesTags: ["booking"],
+    }),
   }),
 });
 
@@ -65,4 +73,5 @@ export const {
   useGetMyBookingsQuery,
   useGetSingleBookingQuery,
   useUpdateStatusInApprovedMutation,
+  useBookingCompletionMutation,
 } = bookingApi;

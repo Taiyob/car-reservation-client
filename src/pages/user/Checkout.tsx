@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useGetSingleBookingQuery } from "../../redux/api/booking/bookingApi";
 import { extractInitialWords } from "../../utils/requiredWords";
@@ -168,9 +168,12 @@ const Checkout = () => {
             </ul>
           </div>
         </div>
-        <button className="btn btn-outline w-full hover:bg-purple-500 hover:text-white">
-          Checkout
-        </button>
+        <Link
+          to={`/user-dashboard/payment/${id}`}
+          className="btn btn-outline w-full hover:bg-purple-500 hover:text-white"
+        >
+          Proceed to Checkout
+        </Link>
       </div>
     </>
   );

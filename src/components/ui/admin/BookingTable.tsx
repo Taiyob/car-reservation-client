@@ -105,9 +105,12 @@ const BookingTable = ({
               {status}
             </button>
           ) : (
-            <button className="badge badge-secondary badge-outline">
+            <Link
+              to={`/${user?.userRole}-dashboard/checkout/${_id}`}
+              className="badge badge-secondary badge-outline"
+            >
               {status}
-            </button>
+            </Link>
           )}
 
           {/* {status === "approved" ? (

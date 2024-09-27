@@ -21,6 +21,7 @@ import UserLayout from "../pages/user/UserLayout";
 import UpdateBooking from "../pages/admin/UpdateBooking";
 import Checkout from "../pages/user/Checkout";
 import AllCars from "../pages/public/AllCars";
+import Payment from "../pages/user/Payment";
 
 const router = createBrowserRouter([
   {
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
       {
         path: "checkout/:id",
         element: <Checkout />,
+      },
+      {
+        path: "payment/:id",
+        element: <Payment />,
       },
     ],
   },
