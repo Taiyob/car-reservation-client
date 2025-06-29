@@ -23,7 +23,7 @@ const Payment = () => {
   const bookingDetails = bookingInfo?.data;
   const totalPrice = bookingDetails?.totalCost;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     console.log("Booking ID from useParams:", id);

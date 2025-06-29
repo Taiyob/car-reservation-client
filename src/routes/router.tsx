@@ -22,6 +22,8 @@ import UpdateBooking from "../pages/admin/UpdateBooking";
 import Checkout from "../pages/user/Checkout";
 import AllCars from "../pages/public/AllCars";
 import Payment from "../pages/user/Payment";
+import ProfilePage from "../pages/user/ProfilePage";
+import ProfileUpdate from "../pages/user/ProfileUpdate";
 
 const router = createBrowserRouter([
   {
@@ -88,6 +90,14 @@ const router = createBrowserRouter([
       {
         path: "payment/:id",
         element: <Payment />,
+      },
+      {
+        path: "profile",
+        element: <ProfilePage />,
+      },
+      {
+        path: "profile/:id",
+        element: <ProfileUpdate />,
       },
     ],
   },

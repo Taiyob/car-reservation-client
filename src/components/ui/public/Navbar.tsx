@@ -101,7 +101,9 @@ const Navbar = () => {
                 } p-5 space-y-5`}
               >
                 <li>
-                  <Link to="/profile">Profile</Link>
+                  <Link to={`/${user?.userRole}-dashboard/profile`}>
+                    Profile
+                  </Link>
                 </li>
                 <li>
                   <Link to="/change-password">Change Password</Link>

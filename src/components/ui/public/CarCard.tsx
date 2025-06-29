@@ -4,11 +4,15 @@ import { Link } from "react-router-dom";
 import { TCarData } from "../../../pages/admin/AllCarsTable";
 
 const CarCard = ({ car }: { car: TCarData }) => {
-  const { _id, name, description, image, features, color, pricePerHour } = car;
+  const { _id, name, description, image } = car;
   const [images, setImages] = useState<string[]>([]);
 
   useEffect(() => {
-    setImages(image);
+    if (Array.isArray(image)) {
+      setImages(image);
+    } else {
+      setImages([]);
+    }
   }, [image]);
 
   return (
